@@ -1,0 +1,57 @@
+{
+	"id": 1,
+	"shopName": "LAPSHOP",
+	"phoneNumber": "09887654321",
+	"facebook": "https://www.facebook.com/luxifer.bepiglet",
+	"email": "ooluxiferoo",
+	"status": 2,
+	"rating": 3,
+	"policy": "Khi giao dịch cầm đồ tại LASPHOP, khách hàng sẽ ký kết hợp đồng khung kỳ hạn mặc định là 1 tháng. Khách hàng có quyền chủ động để chuộc trước hạn hợp đồng hoặc ký gia hạn hợp đồng khi hết hạn.",
+	"latitude": "10.849480",
+	"longtitude": "106.636421",
+	"fullAddress": "948 Đường Nguyễn Văn Quá, Đông Hưng Thuận, Quận 12, Hồ Chí Minh, Việt Nam ",
+	"viewCount": 21,
+	"checkFavorite": false,
+	"categoryItems": [{
+		"id": 1,
+		"categoryName": "Xe Máy",
+		"description": null,
+		"iconUrl": "https://static.vietmoney.vn/vietmoney/2018/12/7d857ceb-xe-may.png"
+	}, {
+		"id": 2,
+		"categoryName": "Ô tô",
+		"description": null,
+		"iconUrl": "https://static.vietmoney.vn/vietmoney/2018/12/4eb8282e-xe.png"
+	}, {
+		"id": 3,
+		"categoryName": "Máy Ảnh",
+		"description": null,
+		"iconUrl": "https://static.vietmoney.vn/vietmoney/2018/12/463dc0fd-may-anh.png"
+	}, {
+		"id": 4,
+		"categoryName": "Đồ Gia Dụng",
+		"description": null,
+		"iconUrl": "https://static.vietmoney.vn/vietmoney/2018/12/2d0eb4d7-gia-dung.png"
+	}, {
+		"id": 5,
+		"categoryName": "Điện Thoại",
+		"description": null,
+		"iconUrl": "https://static.vietmoney.vn/vietmoney/2018/12/44d27cdb-dien-thoai.png"
+	}, {
+		"id": 6,
+		"categoryName": "Máy Tính",
+		"description": null,
+		"iconUrl": "https://static.vietmoney.vn/vietmoney/2018/12/9a2fe623-may-tinh.png"
+	}, {
+		"id": 7,
+		"categoryName": "Sim Số Đẹp",
+		"description": null,
+		"iconUrl": "https://static.vietmoney.vn/vietmoney/2018/12/b30f9ea3-sim.png"
+	}, {
+		"id": 8,
+		"categoryName": "Nhà đất",
+		"description": null,
+		"iconUrl": "https://static.vietmoney.vn/vietmoney/2018/12/bef27ba6-nha.png"
+	}],
+	"avaUrl": "https://i.pinimg.com/236x/45/9b/d2/459bd205d0b44d3d3a588e2e6d690947.jpg"
+}

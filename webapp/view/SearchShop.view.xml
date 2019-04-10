@@ -1,0 +1,80 @@
+<mvc:View controllerName="sap.ui.demo.basicTemplate.controller.SearchShop" displayBlock="true" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:tnt="sap.tnt" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Page>
+		<headerContent>
+			<Bar>
+				<contentLeft>
+					<Button icon="sap-icon://home" press=".backToHome"/>
+				</contentLeft>
+				<contentMiddle>
+					<SearchField id="searchField" search="onSearch" placeholder="{i18n>content_search_field}"/>
+				</contentMiddle>
+				<contentRight>
+					<Button id="notificationButton" icon="sap-icon://bell" visible="{= ${globalProperties>/accountId} !== ''}" type="Transparent"
+						press="onNotificationPress" text="{noti>/count}" class="btn-notify">
+						<layoutData>
+							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
+						</layoutData>
+					</Button>
+					<MessagePopover items="{noti>/}" id="poAlert" >
+						<items>
+							<MessageItem type="{ path: 'noti>status', formatter: '.formatter.status' }" title="{noti>senderId}" subtitle="{noti>dateCreate}"
+								description="{noti>message}" />
+						</items>
+					</MessagePopover>
+					<Button id="userButton" text="{globalProperties>/username}" type="Transparent" press="onUserNamePress"
+						visible="{= ${globalProperties>/accountId} !== ''}">
+						<layoutData>
+							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
+						</layoutData>
+					</Button>
+					<ActionSheet visible="false" placement="Bottom" id="userMessageActionSheet">
+						<buttons>
+							<Button text="{i18n>btn_acc_info}" type="Transparent" press="userDetail"/>
+							<Button text="{i18n>btn_logout}" type="Transparent" press="logout"/>
+						</buttons>
+					</ActionSheet>
+					<l:HorizontalLayout visible="{= ${globalProperties>/accountId} === ''}">
+						<Button text="Đăng Nhập" press="openDialogLogin"/>
+						<Button text="Đăng Ký" press="openDialogRegister"/>
+						<!--<Button text="active" press="navigateActivite"/>-->
+					</l:HorizontalLayout>
+				</contentRight>
+			</Bar>
+		</headerContent>
+		<content>
+			<ObjectHeader xmlns:sap.m="sap.m" title="Kết quả tìm kiếm" fullScreenOptimized="true" titleLevel="Auto" backgroundDesign="Solid"
+				condensed="true" responsive="true" numberState="Warning">
+				<attributes>
+					<!--<sap.m:RatingIndicator id="RI_default" maxValue="5" class="sapUiSmallMarginBottom" value="4" tooltip="Rating Tooltip" />-->
+				</attributes>
+			</ObjectHeader>
+			<List id="ShortProductList" headerText="{i18n>title_shopsItem}" items="{dataShop>/results}" class="customListItem">
+				<CustomListItem type="Navigation" press="selectShop">
+					<HBox>
+						<VBox width="100%">
+							<Image src="{dataShop>avatarUrl}" densityAware="false" width="{/imageWidth}" class="img_item" />
+							<HBox class="hbox_listItem">
+								<Label text="{i18n>lb_shopName}" class="lb_item"/>
+								<Title text="{dataShop>shopName}" class="fixCenter title_saleItem"/>
+							</HBox>
+							<HBox class="hbox_listItem">
+								<Label text="{i18n>lb_address_detail}" class="lb_item"/>
+								<Title text="{dataShop>address/fullAddress}" class="fixCenter title_saleItem"/>
+							</HBox>
+							<HBox class="hbox_listItem">
+								<Label text="{i18n>lb_phoneNumber}" class="lb_item" />
+								<Title text="{dataShop>phoneNumber}" class="fixCenter"/>
+							</HBox>
+							<HBox class="hbox_listItem">
+								<Label text="{i18n>lb_rating}" class="lb_item" />
+								<RatingIndicator id="RI_default" maxValue="5" class="sapUiSmallMarginBottom fixCenter" value="{dataShop>rating}"
+								tooltip="Rating Tooltip" displayOnly="true"/>
+							</HBox>
+						</VBox>
+					</HBox>
+				</CustomListItem>
+			</List>
+		</content>
+	</Page>
+</mvc:View>

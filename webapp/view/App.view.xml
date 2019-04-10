@@ -1,0 +1,4 @@
+<mvc:View controllerName="sap.ui.demo.basicTemplate.controller.App" displayBlock="true" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:tnt="sap.tnt" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
+	<App id="app" class="myApp"></App>
+</mvc:View>

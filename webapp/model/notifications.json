@@ -1,0 +1,13 @@
+[{
+	"senderId": "Hệ thống",
+	"message": "Món hàng HONDA đã được chuộc về, hay tiếp tục theo dõi các món hàng khác để nhận được thông báo khi tới hạn thanh lý.",
+	"dateCreate": "Hôm qua",
+	"objectId": 2,
+	"status": 1
+}, {
+	"senderId": "Hệ thống",
+	"message": "Món hàng HONDA đang được thanh lý, liên hệ chủ cửa hàng để biết thêm chi tiết.",
+	"dateCreate": "Hôm qua",
+	"objectId": 2,
+	"status": 2
+}]

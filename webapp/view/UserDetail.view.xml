@@ -1,0 +1,128 @@
+<mvc:View xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" controllerName="sap.ui.demo.basicTemplate.controller.UserDetail"
+	displayBlock="true" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:u="sap.ui.unified">
+	<Page>
+		<headerContent>
+			<Bar>
+				<contentLeft>
+					<Button icon="sap-icon://home" press=".backToHome"/>
+				</contentLeft>
+				<contentMiddle>
+					<SearchField id="searchField" search="onSearch" placeholder="{i18n>content_search_field}"/>
+				</contentMiddle>
+				<contentRight>
+					<Button id="notificationButton" icon="sap-icon://bell" visible="{= ${globalProperties>/accountId} !== ''}" type="Transparent"
+						press="onNotificationPress" text="{noti>/count}" class="btn-notify">
+						<layoutData>
+							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
+						</layoutData>
+					</Button>
+					<MessagePopover items="{noti>/}" id="poAlert">
+						<items>
+							<MessageItem type="{ path: 'noti>status', formatter: '.formatter.status' }" title="{noti>senderId}" subtitle="{noti>dateCreate}"
+								description="{noti>message}"/>
+						</items>
+					</MessagePopover>
+					<Button id="userButton" text="{globalProperties>/username}" type="Transparent" press="onUserNamePress"
+						visible="{= ${globalProperties>/accountId} !== ''}">
+						<layoutData>
+							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
+						</layoutData>
+					</Button>
+					<ActionSheet visible="false" placement="Bottom" id="userMessageActionSheet">
+						<buttons>
+							<Button text="{i18n>btn_acc_info}" type="Transparent" press="userDetail"/>
+							<Button text="{i18n>btn_logout}" type="Transparent" press="logout"/>
+						</buttons>
+					</ActionSheet>
+					<l:HorizontalLayout visible="{= ${globalProperties>/accountId} === ''}">
+						<Button text="Đăng Nhập" press="openDialogLogin"/>
+						<Button text="Đăng Ký" press="openDialogRegister"/>
+						<!--<Button text="active" press="navigateActivite"/>-->
+					</l:HorizontalLayout>
+				</contentRight>
+			</Bar>
+		</headerContent>
+		<content>
+			<sap.m:ObjectHeader xmlns:sap.m="sap.m" title="{i18n>title_userDetail}" intro="{i18n>intro_userDetail}" fullScreenOptimized="true"
+				titleLevel="Auto" backgroundDesign="Solid" condensed="true" responsive="true" numberState="Warning"></sap.m:ObjectHeader>
+			<IconTabBar expandable="false" expanded="true" id="idIconTabBarSeparatorNoIcon" class="sapUiResponsiveContentPadding">
+				<items>
+					<IconTabFilter icon="sap-icon://hint" iconColor="Positive" text="{i18n>tab_myaccount}">
+						<VBox width="{= ${device>/system/phone} ? '100%' : '500px' }">
+							<HBox class="box_image_userInfo">
+								<Image class="img_userInfo" id="img_user" src="{dataUser>/avaURL}"/>
+								<u:FileUploader iconOnly="true" multiple="false" buttonOnly="true" icon="sap-icon://add-photo" uploadOnChange="false" useMultipart="false"
+									fileType="JPG,JPEG,jpeg,jpg,PNG,png" sameFilenameAllowed="true" typeMissmatch="onTypeMissmatch" change="onUploadPress"/>
+							</HBox>
+							<Image src="{dataUser>avatar}"/>
+							<Label class="sapUiTinyMarginTop" text="{i18n>lb_name_detail}"/>
+							<Input id="nameInput" type="text" value="{dataUser>/name}"/>
+							<Label class="sapUiTinyMarginTop" text="{i18n>lb_email_detail}"/>
+							<Input editable="false" id="emailInput" type="Email" value="{dataUser>/email}"/>
+							<Label class="sapUiTinyMarginTop" text="{i18n>lb_phone_detail}"/>
+							<Input id="phoneInput" type="Tel" value="{dataUser>/phone}"/>
+							<Label class="sapUiTinyMarginTop" text="{i18n>lb_address_detail}"/>
+							<Input id="addressInput" type="Text" value="{dataUser>/address}"/>
+							<Button text="{i18n>btn_update}" press="updateUserInfo"/>
+						</VBox>
+					</IconTabFilter>
+					<IconTabSeparator icon=""/>
+					<IconTabFilter icon="sap-icon://bell" text="{i18n>tab_notify}" iconColor="Negative">
+						<List id="ShortProductList" headerText="{i18n>tab_notify}" items="{dataNotify>/results}">
+							<StandardListItem title="{dataNotify>message}" description="{dataNotify>createTime}" iconDensityAware="false" type="Navigation"
+								iconInset="false" press="selectShop"/>
+						</List>
+					</IconTabFilter>
+					<IconTabFilter icon="sap-icon://notes" text="{i18n>tab_transaction}">
+						<Table inset="{= !${device>/system/phone}}" items="{dataTrans>/results}">
+							<columns>
+								<Column>
+									<Label text="{i18n>cl_transId}"/>
+								</Column>
+								<Column>
+									<Label text="{i18n>cl_itemName}"/>
+								</Column>
+								<Column>
+									<Label text="{i18n>cl_startDate}"/>
+								</Column>
+								<Column>
+									<Label text="{i18n>cl_nextPaymentDate}"/>
+								</Column>
+								<Column>
+									<Label text="{i18n>cl_liquidateAfter}"/>
+								</Column>
+								<Column>
+									<Label text="{i18n>cl_status}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem press="onTransDetailPress" type="Active">
+									<cells>
+										<Text text="{dataTrans>id}"/>
+										<Text text="{dataTrans>itemName}"/>
+										<Text text="{dataTrans>startDate}"/>
+										<Text text="{dataTrans>nextPaymentDate}"/>
+										<Text text="{dataTrans>liquidateAfter}"/>
+										<ObjectStatus text="{trans>status/description}" state="{ path: 'trans>status/id', formatter: '.formatter.status' }"/>
+										<Text text="{dataTrans>status}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</IconTabFilter>
+					<IconTabSeparator icon=""/>
+					<IconTabFilter icon="sap-icon://unlocked" iconColor="Negative" text="{i18n>tab_forgetPassword}">
+						<VBox width="{= ${device>/system/phone} ? '100%' : '500px' }">
+							<Title text="{i18n>title_change_password}"/>
+							<Label class="sapUiTinyMarginTop" text="{i18n>lb_old_password}"/>
+							<Input id="oldPassword" type="Password"/>
+							<Label class="sapUiTinyMarginTop" text="{i18n>lb_new_password}"/>
+							<Input id="newPassword" type="Password"/>
+							<Button text="{i18n>btn_updatePassword}" press="updatePassword"/>
+						</VBox>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+		</content>
+	</Page>
+</mvc:View>

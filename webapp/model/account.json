@@ -1,0 +1,13 @@
+{
+    "id": 5,
+    "role": {
+        "id": 2,
+        "roleName": "ROLE_PAWNER",
+        "description": null
+    },
+    "username": "ooluxiferoo@gmail.com",
+    "password": "$2a$10$7Txbq5LjTzMn./NbVNZelOI2a3SIl.96.3VLsVQuHIRvoWP5cwTDq",
+    "status": 1,
+    "token": null,
+    "createdTime": "2019-03-06T07:12:24.000+0000"
+}

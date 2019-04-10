@@ -1,0 +1,221 @@
+{
+	"_version": "1.12.0",
+	"sap.app": {
+		"id": "sap.ui.demo.basicTemplate",
+		"type": "Pawnee",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"resources": "resources.json",
+		"ach": "ach",
+		"dataSources": {
+			"alert_dataSource": {
+				"uri": "http://192.168.2.97:8080/get-notification",
+				"type": "json"
+			},
+			"shop_dataSource": {
+				"uri": "http://192.168.2.66:8080/search/shops?keyword=",
+				"type": "json"
+			}
+		},
+		"sourceTemplate": {
+			"id": "servicecatalog.connectivityComponent",
+			"version": "0.0.0"
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "sap.ui.demo.basicTemplate.view.App",
+			"type": "XML",
+			"async": true,
+			"id": "app"
+		},
+		"dependencies": {
+			"minUI5Version": "1.60.0",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.ui.layout": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "sap.ui.demo.basicTemplate.i18n.i18n"
+				}
+			},
+			"alert": {
+				"type": "sap.ui.model.json.JSONModel",
+				"dataSource": "alert_dataSource"
+			},
+			"shop": {
+				"type": "sap.ui.model.json.JSONModel",
+				"dataSource": "shop_dataSource"
+			}
+		},
+		"resources": {
+			"css": [{
+				"uri": "css/style.css"
+			}]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "sap.ui.demo.basicTemplate.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"async": true
+			},
+			"routes": [{
+				"pattern": "",
+				"name": "home",
+				"target": [
+					"home"
+				]
+			}, {
+				"pattern": "FindShop/?distric={dis}&category={cate}",
+				"name": "findShop",
+				"target": [
+					"findShop"
+				]
+			}, {
+				"pattern": "ShopDetail/{shopId}",
+				"name": "shopDetail",
+				"target": [
+					"shopDetail"
+				]
+			}, {
+				"pattern": "SellItem",
+				"name": "sellItem",
+				"target": [
+					"sellItem"
+				]
+			}, {
+				"pattern": "UserDetail",
+				"name": "userDetail",
+				"target": [
+					"userDetail"
+				]
+			}, {
+				"pattern": "NearByLocation/?lat={lat}&lng={lng}",
+				"name": "nearByLocation",
+				"target": [
+					"nearByLocation"
+				]
+			}, {
+				"pattern": "Activate/register?token={token}",
+				"name": "activate",
+				"target": [
+					"activate"
+				]
+			}, {
+				"pattern": "SearchShop/?query={query}",
+				"name": "searchShop",
+				"target": [
+					"searchShop"
+				]
+			}, {
+				"pattern": "RegisterShop",
+				"name": "registerShop",
+				"target": [
+					"registerShop"
+				]
+			}, {
+				"pattern": "FindShopByMap/?dis={dis}&cate={cate}",
+				"name": "findShopByMap",
+				"target": [
+					"findShopByMap"
+				]
+			}, {
+				"pattern": "ItemDetail/?itemId={itemId}",
+				"name": "itemDetail",
+				"target": [
+					"itemDetail"
+				]
+			}],
+			"targets": {
+				"home": {
+					"viewName": "Home",
+					"viewId": "home",
+					"viewLevel": 1,
+					"title": "{i18n>title}"
+				},
+				"findShop": {
+					"viewName": "FindShop",
+					"viewId": "findShop",
+					"controlId": "app"
+				},
+				"shopDetail": {
+					"viewName": "ShopDetail",
+					"viewId": "shopDetail",
+					"controlId": "app"
+				},
+				"sellItem": {
+					"viewName": "SellItem",
+					"viewId": "sellItem",
+					"controlId": "app"
+				},
+				"userDetail": {
+					"viewName": "UserDetail",
+					"viewId": "userDetail",
+					"controlId": "app"
+				},
+				"nearByLocation": {
+					"viewName": "NearByLocation",
+					"viewId": "nearByLocation",
+					"controlId": "app"
+				},
+				"activate": {
+					"viewName": "Activate",
+					"viewId": "activate",
+					"controlId": "app"
+				},
+				"searchShop": {
+					"viewName": "SearchShop",
+					"viewId": "searchShop",
+					"controlId": "app"
+				},
+				"registerShop": {
+					"viewName": "RegisterShop",
+					"viewId": "registerShop",
+					"controlId": "app"
+				},
+				"findShopByMap": {
+					"viewName": "FindShopByMap",
+					"viewId": "findShopByMap",
+					"controlId": "app"
+				},
+				"itemDetail": {
+					"viewName": "ItemDetail",
+					"viewId": "itemDetail",
+					"controlId": "app"
+				}
+			}
+		}
+	}
+}

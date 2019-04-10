@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "shopName": "LAPSHOP",
+        "phoneNumber": "123456789",
+        "facebook": "https://www.facebook.com/luxifer.bepiglet",
+        "email": "ooluxiferoo",
+        "status": 2,
+        "rating": 3,
+        "policy": 5,
+        "latitude": "10.849480",
+        "longtitude": "106.636421",
+        "fullAddress": "",
+        "avaURL": "https://kenh14cdn.com/2019/1/16/hoatran-7222-15476569290391575146955.jpg"
+    },
+    {
+        "id": 2,
+        "shopName": "ThinhShop",
+        "phoneNumber": "987654321",
+        "facebook": "https://www.facebook.com/bui.thinh.395",
+        "email": "thinhbui@gmail.com",
+        "status": 2,
+        "rating": 4,
+        "policy": 5,
+        "latitude": "10.845050",
+        "longtitude": "106.629650",
+        "fullAddress": "",
+        "avaURL": "http://media.baotinnhanh.vn/js/tiny_mce/plugins/imagemanager/files/giai_tri/phuong-ly-gay-an-tuong-voi-ao-dai-viet-bao-tin-nhanh-1.JPG"
+    },
+    {
+        "id": 3,
+        "shopName": "HuyShop",
+        "phoneNumber": "541236987",
+        "facebook": "https://www.facebook.com/giahuy.truong.773",
+        "email": "huygia@gmail.com",
+        "status": 2,
+        "rating": 5,
+        "policy": 5,
+        "latitude": "10.846810",
+        "longtitude": "106.641590",
+        "fullAddress": "",
+        "avaURL": "https://scontent.fsgn4-1.fna.fbcdn.net/v/t1.0-9/53083483_2210512525638694_4592640849241702400_n.jpg?_nc_cat=100&_nc_eui2=AeH9Y9O6RDXKa5DjPJFdoPisjgEIDOHUlp1objmKAULf5C1CAuKgvNcp_AVzyp0p7TDJNFcIgmRV0kPYLchCrixop4LoyMYQKI-gpufDJxuylQ&_nc_oc=AQmEum-s5LlIY5eL"
+    }
+]

@@ -1,0 +1,89 @@
+<mvc:View controllerName="sap.ui.demo.basicTemplate.controller.FindShopByMap" displayBlock="true" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Page>
+		<headerContent>
+			<Bar>
+				<contentLeft>
+					<Button icon="sap-icon://home" press=".backToHome"/>
+				</contentLeft>
+				<contentMiddle>
+					<SearchField id="searchField" search="onSearch" placeholder="{i18n>content_search_field}"/>
+				</contentMiddle>
+				<contentRight>
+					<Button id="notificationButton" icon="sap-icon://bell" visible="{= ${globalProperties>/accountId} !== ''}" type="Transparent"
+						press="onNotificationPress" text="{noti>/count}" class="btn-notify">
+						<layoutData>
+							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
+						</layoutData>
+					</Button>
+					<MessagePopover items="{noti>/}" id="poAlert">
+						<items>
+							<MessageItem type="{ path: 'noti>status', formatter: '.formatter.status' }" title="{noti>senderId}" subtitle="{noti>dateCreate}"
+								description="{noti>message}"/>
+						</items>
+					</MessagePopover>
+					<Button id="userButton" text="{globalProperties>/username}" type="Transparent" press="onUserNamePress"
+						visible="{= ${globalProperties>/accountId} !== ''}">
+						<layoutData>
+							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
+						</layoutData>
+					</Button>
+					<ActionSheet visible="false" placement="Bottom" id="userMessageActionSheet">
+						<buttons>
+							<Button text="{i18n>btn_acc_info}" type="Transparent" press="userDetail"/>
+							<Button text="{i18n>btn_logout}" type="Transparent" press="logout"/>
+						</buttons>
+					</ActionSheet>
+					<l:HorizontalLayout visible="{= ${globalProperties>/accountId} === ''}">
+						<Button text="Đăng Nhập" press="openDialogLogin"/>
+						<Button text="Đăng Ký" press="openDialogRegister"/>
+						<!--<Button text="active" press="navigateActivite"/>-->
+					</l:HorizontalLayout>
+				</contentRight>
+			</Bar>
+		</headerContent>
+		<content>
+			<sap.m:ObjectHeader xmlns:sap.m="sap.m" title="{i18n>title_findShopByMap}" intro="{i18n>intro_nearByLocation}" fullScreenOptimized="true"
+				titleLevel="Auto" backgroundDesign="Solid" condensed="true" responsive="true" numberState="Warning"></sap.m:ObjectHeader>
+			<HBox width="100%" class="box_filter_and_shop">
+				<VBox width="31%">
+					<fb:FilterBar class="find-filter" id="filterbar" search="onSearch" useToolbar="false" showGoOnFB="false" showFilterConfiguration="false">
+						<fb:filterItems>
+							<fb:FilterItem name="A" label="{i18n>lbl_city}">
+								<fb:control>
+									<Select forceSelection="false" change="onChangeCity" selectedKey="{dataCity>/selectedCity}" id="filterCity"
+										items="{ path: 'dataCity>/results', templateShareable: false }">
+										<items>
+											<core:Item key="{dataCity>id}" text="{dataCity>cityName}"/>
+										</items>
+									</Select>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="B" label="{i18n>lbl_region}">
+								<fb:control>
+									<Select id="filterDistrict" selectItemId="{dataDis>id}" items="{dataDis>/results}">
+										<core:Item key="{dataDis>id}" text="{dataDis>districtName}"/>
+									</Select>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="D" label="{i18n>lbl_category}">
+								<fb:control>
+									<Select id="filterItem" selectItemId="{dataCate>id}" items="{dataCate>/results}">
+										<core:Item key="{dataCate>id}" text="{dataCate>categoryName}"/>
+									</Select>
+								</fb:control>
+							</fb:FilterItem>
+						</fb:filterItems>
+						<HBox class="box_btn_searchByFilter">
+							<Button text="{i18n>btn_searchByFields}" press="searchPlaceByForm" class="btn-searchByFilter"></Button>
+							<Button text="{i18n>btn_back}" press="navToSearhByFields" class="margin_left"/>
+						</HBox>
+					</fb:FilterBar>
+				</VBox>
+				<VBox class="custom-map-findshop">
+					<HBox id="map_canvas" fitContainer="true" justifyContent="Center" alignItems="Center"></HBox>
+				</VBox>
+			</HBox>
+		</content>
+	</Page>
+</mvc:View>

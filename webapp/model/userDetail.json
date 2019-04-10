@@ -1,0 +1,61 @@
+{
+	"id": 2,
+	"name": "Lap",
+	"email": "ooluxiferoo@gmail.com",
+	"phoneNumber": "0123456789",
+	"accountId": 5,
+	"avaURL": "https://kenh14cdn.com/2019/1/16/hoatran-7222-15476569290391575146955.jpg",
+	"address": null,
+	"listFavoriteItem": [{
+		"id": 1,
+		"price": 500,
+		"status": 1,
+		"categoryId": 1,
+		"viewCount": 12,
+		"transactionId": 1,
+		"pictureId": 1,
+		"itemName": "HONDA"
+	}],
+	"listFavoriteShop": [{
+		"id": 1,
+		"shopName": "LAPSHOP",
+		"phoneNumber": "123456789",
+		"facebook": "https://www.facebook.com/luxifer.bepiglet",
+		"email": "ooluxiferoo",
+		"status": 2,
+		"rating": 3,
+		"policy": 5,
+		"accountId": 5,
+		"addressId": 22,
+		"viewCount": 35,
+		"avatarUrl": "https://i.pinimg.com/236x/45/9b/d2/459bd205d0b44d3d3a588e2e6d690947.jpg"
+	}],
+	"listNotification": [{
+		"id": 32,
+		"senderId": 1,
+		"receiverId": 2,
+		"objectId": 10,
+		"message": "Bạn vừa được thêm vào một giao dịch, nhấn để biết thêm chi tiết.",
+		"status": 0,
+		"type": 2,
+		"createTime": "2019-03-15T08:42:26.000+0000"
+	}],
+	"listTransaction": [{
+		"id": 10,
+		"startDate": "2019-03-15T08:42:25.000+0000",
+		"nextPaymentDate": "2019-10-15T08:42:25.000+0000",
+		"price": 500,
+		"status": 1,
+		"pawnerId": 2,
+		"shopId": 1,
+		"paymentTerm": 7,
+		"paymentType": 3,
+		"liquidateAfter": 5,
+		"attribute1Value": "1",
+		"attribute2Value": "2",
+		"attribute3Value": "3",
+		"attribute4Value": "4",
+		"categoryItemId": 1,
+		"itemName": "Honda"
+	}]
+}

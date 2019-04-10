@@ -1,0 +1,123 @@
+<mvc:View controllerName="sap.ui.demo.basicTemplate.controller.FindShop" displayBlock="true" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" >
+	<Page>
+		<headerContent>
+			<Bar>
+				<contentLeft>
+					<Button icon="sap-icon://home" press=".backToHome"/>
+				</contentLeft>
+				<contentMiddle>
+					<SearchField id="searchField" search="onSearch" placeholder="{i18n>content_search_field}"/>
+				</contentMiddle>
+				<contentRight>
+					<Button id="notificationButton" icon="sap-icon://bell" visible="{= ${globalProperties>/accountId} !== ''}" type="Transparent"
+						press="onNotificationPress" text="{noti>/count}" class="btn-notify">
+						<layoutData>
+							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
+						</layoutData>
+					</Button>
+					<MessagePopover items="{noti>/}" id="poAlert">
+						<items>
+							<MessageItem type="{ path: 'noti>status', formatter: '.formatter.status' }" title="{noti>senderId}" subtitle="{noti>dateCreate}"
+								description="{noti>message}"/>
+						</items>
+					</MessagePopover>
+					<Button id="userButton" text="{globalProperties>/username}" type="Transparent" press="onUserNamePress"
+						visible="{= ${globalProperties>/accountId} !== ''}">
+						<layoutData>
+							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
+						</layoutData>
+					</Button>
+					<ActionSheet visible="false" placement="Bottom" id="userMessageActionSheet">
+						<buttons>
+							<Button text="{i18n>btn_acc_info}" type="Transparent" press="userDetail"/>
+							<Button text="{i18n>btn_logout}" type="Transparent" press="logout"/>
+						</buttons>
+					</ActionSheet>
+					<l:HorizontalLayout visible="{= ${globalProperties>/accountId} === ''}">
+						<Button text="Đăng Nhập" press="openDialogLogin"/>
+						<Button text="Đăng Ký" press="openDialogRegister"/>
+						<!--<Button text="active" press="navigateActivite"/>-->
+					</l:HorizontalLayout>
+				</contentRight>
+			</Bar>
+		</headerContent>
+		<content>
+			<sap.m:ObjectHeader xmlns:sap.m="sap.m" title="{i18n>title_findShop}" intro="{i18n>intro_nearByLocation}" fullScreenOptimized="true"
+				titleLevel="Auto" backgroundDesign="Solid" condensed="true" responsive="true" numberState="Warning"></sap.m:ObjectHeader>
+			<HBox width="100%" class="box_filter_and_shop">
+				<VBox width="31%">
+					<fb:FilterBar class="find-filter" id="filterbar" search="onSearch" useToolbar="false" showGoOnFB="false" showFilterConfiguration="false">
+						<fb:filterItems>
+							<fb:FilterItem name="A" label="{i18n>lbl_city}">
+								<fb:control>
+									<Select forceSelection="false" change="onChangeCity" selectedKey="{dataCity>/selectedCity}" id="filterCity"
+										items="{ path: 'dataCity>/results', templateShareable: false }">
+										<items>
+											<core:Item key="{dataCity>id}" text="{dataCity>cityName}"/>
+										</items>
+									</Select>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="B" label="{i18n>lbl_region}">
+								<fb:control>
+									<Select id="filterDistrict" selectItemId="{dataDis>id}" items="{dataDis>/results}">
+										<core:Item key="{dataDis>id}" text="{dataDis>districtName}"/>
+									</Select>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="D" label="{i18n>lbl_category}">
+								<fb:control>
+									<Select id="filterItem" selectItemId="{dataCate>id}" items="{dataCate>/results}">
+										<core:Item key="{dataCate>id}" text="{dataCate>categoryName}"/>
+									</Select>
+								</fb:control>
+							</fb:FilterItem>
+						</fb:filterItems>
+						<VBox class="box_btn_searchByFilter">
+							<Button text="{i18n>btn_searchByFields}" press="searchPlaceByForm" class="btn-searchByFilter"></Button>
+						</VBox>
+					</fb:FilterBar>
+				</VBox>
+				<VBox width="69%">
+					<HBox width="100%" class="box_select_container">
+						<VBox width="300px" class="box_select_sort">
+							<Label text="{i18n>lb_sort}" class="label_for_btn"/>
+							<Select width="100%" forceSelection="false" change="onChangeSort" selectedKey="4" id="filterSort">
+								<items>
+									<core:Item key="4" text="{i18n>select_dexuat}"/>
+									<core:Item key="3" text="{i18n>select_all}"/>
+									<core:Item key="1" text="{i18n>select_rating}"/>
+									<core:Item key="2" text="{i18n>select_view}"/>
+								</items>
+							</Select>
+						</VBox>
+						<Button text="{i18n>btn_openMap}" press="navToMap" class="btn-location"/>
+					</HBox>
+					<List id="ShortProductList" headerText="{i18n>title_shopsItem}" items="{dataSearchShop>/results}" class="customListFilterShop">
+						<CustomListItem type="Navigation" press="selectShop">
+							<HBox>
+								<Image src="{dataSearchShop>avatarUrl}" class="listShopImage"/>
+								<VBox class="box_listShopInfo">
+									<HBox class="box_info_shop">
+										<Label text="{i18n>lb_shopName}" class="lb_shop"/>
+										<Title text="{dataSearchShop>shopName}"/>
+									</HBox>
+									<HBox class="box_info_shop">
+										<Label text="{i18n>lb_address_detail}" class="lb_shop"/>
+										<Title text="{dataSearchShop>address/fullAddress}"/>
+									</HBox>
+									<HBox class="box_info_shop">
+										<Label text="{i18n>lb_rating}" class="lb_shop"/>
+										<RatingIndicator id="RI_default" maxValue="{dataSearchShop>rating}" class="sapUiSmallMarginBottom" value="{dataSearchShop>rating}"
+											tooltip="Rating Tooltip" displayOnly="true"/>
+									</HBox>
+								</VBox>
+							</HBox>
+						</CustomListItem>
+					</List>
+				</VBox>
+			</HBox>
+		</content>
+	</Page>
+</mvc:View>

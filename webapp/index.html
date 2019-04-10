@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Pawner</title>
+
+	<script id="sap-ui-bootstrap"
+		src="https://sapui5.hana.ondemand.com/1.60.10/resources/sap-ui-core.js"
+		data-sap-ui-theme="sap_belize_plus"
+		data-sap-ui-resourceroots='{
+			"sap.ui.demo.basicTemplate": "./"
+		}'
+		data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
+		data-sap-ui-compatVersion="edge"
+		data-sap-ui-async="true"
+		data-sap-ui-frameOptions="trusted">
+	</script>
+	
+	<script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDt04NgNUNWwUDYKuDG8LBaXRYxBexXWJ4&libraries=places"	type ="text/javascript">
+	</script>
+	
+	<style>
+		.myMap { 
+			height: 100%;
+			width: 100%  ;
+		}
+	</style>
+</head>
+
+<body class="sapUiBody" id="content">
+	<div data-sap-ui-component data-name="sap.ui.demo.basicTemplate" data-id="container" data-settings='{"id" : "basicTemplate"}'></div>
+</body>
+</html>

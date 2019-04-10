@@ -1,0 +1,98 @@
+<mvc:View controllerName="sap.ui.demo.basicTemplate.controller.SellItem" displayBlock="true" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:tnt="sap.tnt" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
+	<Page>
+		<headerContent>
+			<Bar>
+				<contentLeft>
+					<Button icon="sap-icon://home" press=".backToHome"/>
+				</contentLeft>
+				<contentMiddle>
+					<SearchField id="searchField" search="onSearch" placeholder="{i18n>content_search_field}"/>
+				</contentMiddle>
+				<contentRight>
+					<Button id="notificationButton" icon="sap-icon://bell" visible="{= ${globalProperties>/accountId} !== ''}" type="Transparent"
+						press="onNotificationPress" text="{noti>/count}" class="btn-notify">
+						<layoutData>
+							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
+						</layoutData>
+					</Button>
+					<MessagePopover items="{noti>/}" id="poAlert">
+						<items>
+							<MessageItem type="{ path: 'noti>status', formatter: '.formatter.status' }" title="{noti>senderId}" subtitle="{noti>dateCreate}"
+								description="{noti>message}"/>
+						</items>
+					</MessagePopover>
+					<Button id="userButton" text="{globalProperties>/username}" type="Transparent" press="onUserNamePress"
+						visible="{= ${globalProperties>/accountId} !== ''}">
+						<layoutData>
+							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
+						</layoutData>
+					</Button>
+					<ActionSheet visible="false" placement="Bottom" id="userMessageActionSheet">
+						<buttons>
+							<Button text="{i18n>btn_acc_info}" type="Transparent" press="userDetail"/>
+							<Button text="{i18n>btn_logout}" type="Transparent" press="logout"/>
+						</buttons>
+					</ActionSheet>
+					<l:HorizontalLayout visible="{= ${globalProperties>/accountId} === ''}">
+						<Button text="Đăng Nhập" press="openDialogLogin"/>
+						<Button text="Đăng Ký" press="openDialogRegister"/>
+						<!--<Button text="active" press="navigateActivite"/>-->
+					</l:HorizontalLayout>
+				</contentRight>
+			</Bar>
+		</headerContent>
+		<content>
+			<sap.m:ObjectHeader xmlns:sap.m="sap.m" title="{i18n>title_sellItem}" intro="{i18n>intro_sellItem}" fullScreenOptimized="true"
+				titleLevel="Auto" backgroundDesign="Solid" condensed="true" responsive="true" numberState="Warning"></sap.m:ObjectHeader>
+			<VBox>
+				<List headerText="{i18n>title_saleItem}" id="ListCategory" items="{listCate>/results}" class="sortList_container">
+					<CustomListItem type="Navigation" press="selectOptionCate" class="listCategory_fragment">
+						<VBox class="list_category_fragment">
+							<Image class="categoy_image" src="{listCate>iconUrl}"/>
+							<Title text="{listCate>categoryName}" class="category_text"/>
+						</VBox>
+					</CustomListItem>
+				</List>
+			</VBox>
+			<VBox>
+				<VBox width="200px" class="box_select_sort_item">
+					<Label text="{i18n>lb_sort}" class="label_for_btn"/>
+					<Select width="100%" forceSelection="false" change="onChangeSort" selectedKey="6" id="filterSort">
+						<items>
+							<core:Item key="6" text="{i18n>select_all}"/>
+							<core:Item key="1" text="{i18n>select_new_item}"/>
+							<core:Item key="4" text="{i18n>select_height_price}"/>
+							<core:Item key="5" text="{i18n>select_low_price}"/>
+							<core:Item key="2" text="{i18n>select_view}"/>
+							<core:Item key="3" text="{i18n>select_like}"/>
+						</items>
+					</Select>
+				</VBox>
+				<List id="ShortProductList" items="{bestItem>/results}" class="customListItem">
+					<CustomListItem type="Navigation" press="selectItem">
+						<HBox>
+							<VBox width="100%">
+								<Image class="img_item" src="{bestItem>picUrl}" />
+								<HBox class="hbox_listItem">
+									<Label text="{i18n>lb_itemName}" class="lb_item"/>
+									<Title text="{bestItem>itemName}" class="fixCenter title_saleItem"/>
+								</HBox>
+								<HBox class="hbox_listItem">
+									<Label text="{i18n>lb_price}" class="lb_item"/>
+									<Title text="{bestItem>price} VNĐ" class="fixCenter"/>
+								</HBox>
+								<HBox class="hbox_listItem">
+									<Label text="{i18n>lb_liquidationDate}" class="lb_item"/>
+									<Title
+										text="{ path: 'bestItem>liquidationDate', type: 'sap.ui.model.type.Date', formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ss.sss+hhmm' }, pattern: 'dd-MM-yyyy' } }"
+										class="fixCenter"/>
+								</HBox>
+							</VBox>
+						</HBox>
+					</CustomListItem>
+				</List>
+			</VBox>
+		</content>
+	</Page>
+</mvc:View>

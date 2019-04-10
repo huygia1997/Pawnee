@@ -1,0 +1,109 @@
+<mvc:View controllerName="sap.ui.demo.basicTemplate.controller.ItemDetail" displayBlock="true" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:tnt="sap.tnt" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Page>
+		<headerContent>
+			<Bar>
+				<contentLeft>
+					<Button icon="sap-icon://home" press=".backToHome"/>
+				</contentLeft>
+				<contentMiddle>
+					<SearchField id="searchField" search="onSearch" placeholder="{i18n>content_search_field}"/>
+				</contentMiddle>
+				<contentRight>
+					<Button id="notificationButton" icon="sap-icon://bell" visible="{= ${globalProperties>/accountId} !== ''}" type="Transparent"
+						press="onNotificationPress" text="{noti>/count}" class="btn-notify">
+						<layoutData>
+							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
+						</layoutData>
+					</Button>
+					<MessagePopover items="{noti>/}" id="poAlert">
+						<items>
+							<MessageItem type="{ path: 'noti>status', formatter: '.formatter.status' }" title="{noti>senderId}" subtitle="{noti>dateCreate}"
+								description="{noti>message}"/>
+						</items>
+					</MessagePopover>
+					<Button id="userButton" text="{globalProperties>/username}" type="Transparent" press="onUserNamePress"
+						visible="{= ${globalProperties>/accountId} !== ''}">
+						<layoutData>
+							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
+						</layoutData>
+					</Button>
+					<ActionSheet visible="false" placement="Bottom" id="userMessageActionSheet">
+						<buttons>
+							<Button text="{i18n>btn_acc_info}" type="Transparent" press="userDetail"/>
+							<Button text="{i18n>btn_logout}" type="Transparent" press="logout"/>
+						</buttons>
+					</ActionSheet>
+					<l:HorizontalLayout visible="{= ${globalProperties>/accountId} === ''}">
+						<Button text="Đăng Nhập" press="openDialogLogin"/>
+						<Button text="Đăng Ký" press="openDialogRegister"/>
+						<!--<Button text="active" press="navigateActivite"/>-->
+					</l:HorizontalLayout>
+				</contentRight>
+			</Bar>
+		</headerContent>
+		<content>
+			<ObjectHeader xmlns:sap.m="sap.m" title="{i18n>title_itemDetail}" fullScreenOptimized="true" titleLevel="Auto" backgroundDesign="Solid"
+				condensed="true" responsive="true" numberState="Warning"></ObjectHeader>
+			<VBox class="shopDetail-container">
+				<l:Grid binding="{/oModelItem}" class="sapUiSmallMarginTop grid-custom" hSpacing="2" defaultSpan="L6 M6 S10">
+					<l:content>
+						<HBox>
+							<Image src="{oModelItem>/avaUrl}" class="itemDetail_img"/>
+							<VBox class="info_itemDetail">
+								<HBox class="box_btn_favorite">
+									<Button id="btn_visible_favorite" visible="{= ${oModelItem>/check} === false }" text="{i18n>lb_interested}" press="interestedItem"
+										class="btn_favorite"/>
+									<Button id="btn_visible_unFavorite" visible="{= ${oModelItem>/check} === true }" text="{i18n>lb_unInterested}" press="unInterestedItem"
+										class="btn_favorite"/>
+									<Button id="btn_shopOfItem" text="{i18n>btn_shopOfItem}" press="shopContact" class="btn_rating"/>
+								</HBox>
+								<HBox class="box_itemDetail">
+									<Label class="itemDetail_label" text="{i18n>lb_itemName}"/>
+									<Title text="{oModelItem>/name}"/>
+								</HBox>
+								<HBox class="box_itemDetail">
+									<Label class="itemDetail_label" text="{i18n>lb_description}"/>
+									<Title text="{oModelItem>/description}"/>
+								</HBox>
+								<HBox class="box_itemDetail">
+									<Label class="itemDetail_label" text="{i18n>lb_liquidationDate}"/>
+									<Title
+										text="{ path: 'oModelItem>/liquidationDate', 
+										type: 'sap.ui.model.type.Date', 
+										formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ss.sss+hhmm' }, pattern: 'dd-MM-yyyy' } }"
+										class="fixCenter"/>
+								</HBox>
+								<HBox class="box_itemDetail">
+									<Label class="itemDetail_label" text="{i18n>lb_price}"/>
+									<Title text="{oModelItem>/price} VNĐ"/>
+								</HBox>
+								<HBox class="box_itemDetail">
+									<Label class="itemDetail_label" text="{i18n>lb_itemView}"/>
+									<Title text="{oModelItem>/view} lượt xem"/>
+								</HBox>
+								<HBox class="item_images">
+									<List id="ShortProductList" items="{oModelImages>/results}" class="list_images">
+										<CustomListItem>
+											<Image src="{oModelImages>}">
+												<detailBox>
+													<LightBox>
+														<LightBoxItem imageSrc="{oModelImages>}"/>
+													</LightBox>
+												</detailBox>
+												<!-- Fixes Hbox layout on Android Stock Browser for Android 5.0 -->
+												<layoutData>
+													<FlexItemData growFactor="1" shrinkFactor="0"/>
+												</layoutData>
+											</Image>
+										</CustomListItem>
+									</List>
+								</HBox>
+							</VBox>
+						</HBox>
+					</l:content>
+				</l:Grid>
+			</VBox>
+		</content>
+	</Page>
+</mvc:View>

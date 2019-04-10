@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns:core='sap.ui.core' xmlns="sap.m" xmlns:l="sap.ui.layout">
+	<Dialog title="Thành Phố" afterClose="dialogAfterclose">
+		<content>
+			<List id="listFieldSelect" items="{valueHelp>/value}" mode="SingleSelectMaster" selectionChange=".onMasterPressed">
+				<StandardListItem title="{valueHelp>CategoryName}"/>
+			</List>
+		</content>
+		<endButton>
+			<Button text="Close" press="onDialogClose"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

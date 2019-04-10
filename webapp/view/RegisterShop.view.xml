@@ -1,0 +1,130 @@
+<mvc:View controllerName="sap.ui.demo.basicTemplate.controller.RegisterShop" displayBlock="true" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.ui.layout.form" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Page>
+		<headerContent>
+			<Bar>
+				<contentLeft>
+					<Button icon="sap-icon://home" press=".backToHome"/>
+				</contentLeft>
+				<contentMiddle>
+					<SearchField id="searchField" search="onSearch" placeholder="{i18n>content_search_field}"/>
+				</contentMiddle>
+				<contentRight>
+					<Button id="notificationButton" icon="sap-icon://bell" visible="{= ${globalProperties>/accountId} !== ''}" type="Transparent"
+						press="onNotificationPress" text="{noti>/count}" class="btn-notify">
+						<layoutData>
+							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
+						</layoutData>
+					</Button>
+					<MessagePopover items="{noti>/}" id="poAlert" >
+						<items>
+							<MessageItem type="{ path: 'noti>status', formatter: '.formatter.status' }" title="{noti>senderId}" subtitle="{noti>dateCreate}"
+								description="{noti>message}" />
+						</items>
+					</MessagePopover>
+					<Button id="userButton" text="{globalProperties>/username}" type="Transparent" press="onUserNamePress"
+						visible="{= ${globalProperties>/accountId} !== ''}">
+						<layoutData>
+							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
+						</layoutData>
+					</Button>
+					<ActionSheet visible="false" placement="Bottom" id="userMessageActionSheet">
+						<buttons>
+							<Button text="{i18n>btn_acc_info}" type="Transparent" press="userDetail"/>
+							<Button text="{i18n>btn_logout}" type="Transparent" press="logout"/>
+						</buttons>
+					</ActionSheet>
+					<l:HorizontalLayout visible="{= ${globalProperties>/accountId} === ''}">
+						<Button text="Đăng Nhập" press="openDialogLogin"/>
+						<Button text="Đăng Ký" press="openDialogRegister"/>
+						<!--<Button text="active" press="navigateActivite"/>-->
+					</l:HorizontalLayout>
+				</contentRight>
+			</Bar>
+		</headerContent>
+		<content>
+			<sap.m:ObjectHeader xmlns:sap.m="sap.m" title="{i18n>title_registerShop}" intro="{i18n>intro_registerShop}" fullScreenOptimized="true"
+				titleLevel="Auto" backgroundDesign="Solid" condensed="true" responsive="true" numberState="Warning"></sap.m:ObjectHeader>
+			<VBox class="registerShop-container">
+				<f:Form editable="true" class="custom-form-register">
+					<f:layout>
+						<f:ResponsiveGridLayout 
+							labelSpanXL="4" 
+							labelSpanL="2" 
+							labelSpanM="2" 
+							labelSpanS="12" 
+							adjustLabelSpan="false" 
+							emptySpanXL="4" 
+							emptySpanL="2"
+							emptySpanM="1" 
+							emptySpanS="0" 
+							columnsXL="1" 
+							columnsL="1" 
+							columnsM="1" 
+							columnsS="1" singleContainerFullSize="false"/>
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement>
+									<f:label>
+										<Label required="true" text="{i18n>lbl_register_email}"/>
+									</f:label>
+									<f:fields>
+										<Input change="validateEmail" id="emailRegister" type="Email" value="{modelRegister>/email}"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:label>
+										<Label required="true" text="{i18n>lbl_register_shopName}"/>
+									</f:label>
+									<f:fields>
+										<Input change="handleUserInput" id="ip_shopname" type="Text" value="{modelRegister>/shopName}"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:label>
+										<Label required="true" text="{i18n>lbl_register_phone}"/>
+									</f:label>
+									<f:fields>
+										<Input change="validatePhone" id="ip_phone" type="Tel" value="{modelRegister>/phone}"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:label>
+										<Label required="true" text="{i18n>lbl_register_city_distric}"/>
+									</f:label>
+									<f:fields>
+										<Select forceSelection="false" change="onChangeCity" selectedKey="{dataCity>/selectedCity}" id="filterCity"
+											items="{ path: 'dataCity>/results', templateShareable: false }">
+											<items>
+												<core:Item key="{dataCity>id}" text="{dataCity>cityName}"/>
+											</items>
+										</Select>
+										<Select id="filterDistrict" selectItemId="{dataDis>id}" items="{dataDis>/results}">
+											<core:Item key="{dataDis>id}" text="{dataDis>districtName}"/>
+										</Select>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:label>
+										<Label required="true" text="{i18n>lbl_register_address}"/>
+									</f:label>
+									<f:fields>
+										<Input id="ip_address" value="{modelRegister>/address}" change="getLocationFromInput" type="Text" placeholder="{i18n>input_register_address}"/>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+				<VBox class="registerShop-footer">
+					<Text class="grey-text" text="{i18n>register_guild}"/>
+					<HBox id="map_canvas" fitContainer="true" justifyContent="Center" alignItems="Center" class="custom-map-register"></HBox>
+					<Text class="grey-text" text="{i18n>register_policy}"/>
+					<Button busy="{= ${loginResult>/isLogging} ? true : false}" class="btn-findmore registerShop-sizeBtn" text="{i18n>btn_register_shop}" press="registerShop"/>
+				</VBox>
+			</VBox>
+		</content>
+	</Page>
+</mvc:View>

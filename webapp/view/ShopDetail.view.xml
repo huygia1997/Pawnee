@@ -1,0 +1,126 @@
+<mvc:View controllerName="sap.ui.demo.basicTemplate.controller.ShopDetail" displayBlock="true" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:tnt="sap.tnt" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Page>
+		<headerContent>
+			<Bar>
+				<contentLeft>
+					<Button icon="sap-icon://home" press=".backToHome"/>
+				</contentLeft>
+				<contentMiddle>
+					<SearchField id="searchField" search="onSearch" placeholder="{i18n>content_search_field}"/>
+				</contentMiddle>
+				<contentRight>
+					<Button id="notificationButton" icon="sap-icon://bell" visible="{= ${globalProperties>/accountId} !== ''}" type="Transparent"
+						press="onNotificationPress" text="{noti>/count}" class="btn-notify">
+						<layoutData>
+							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
+						</layoutData>
+					</Button>
+					<MessagePopover items="{noti>/}" id="poAlert">
+						<items>
+							<MessageItem type="{ path: 'noti>status', formatter: '.formatter.status' }" title="{noti>senderId}" subtitle="{noti>dateCreate}"
+								description="{noti>message}"/>
+						</items>
+					</MessagePopover>
+					<Button id="userButton" text="{globalProperties>/username}" type="Transparent" press="onUserNamePress"
+						visible="{= ${globalProperties>/accountId} !== ''}">
+						<layoutData>
+							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
+						</layoutData>
+					</Button>
+					<ActionSheet visible="false" placement="Bottom" id="userMessageActionSheet">
+						<buttons>
+							<Button text="{i18n>btn_acc_info}" type="Transparent" press="userDetail"/>
+							<Button text="{i18n>btn_logout}" type="Transparent" press="logout"/>
+						</buttons>
+					</ActionSheet>
+					<l:HorizontalLayout visible="{= ${globalProperties>/accountId} === ''}">
+						<Button text="Đăng Nhập" press="openDialogLogin"/>
+						<Button text="Đăng Ký" press="openDialogRegister"/>
+						<!--<Button text="active" press="navigateActivite"/>-->
+					</l:HorizontalLayout>
+				</contentRight>
+			</Bar>
+		</headerContent>
+		<content>
+			<ObjectHeader xmlns:sap.m="sap.m" title="{i18n>title_shopDetail}" fullScreenOptimized="true" titleLevel="Auto" backgroundDesign="Solid"
+				condensed="true" responsive="true" numberState="Warning">
+				<statuses></statuses>
+				<sap.m:attributes>
+					<ObjectAttribute text="{i18n>btn_back}" active="true" press="backToPrevious"/>
+				</sap.m:attributes>
+			</ObjectHeader>
+			<VBox class="shopDetail-container">
+				<l:Grid binding="{/dataShopDetail}" class="sapUiSmallMarginTop grid-custom" hSpacing="2" defaultSpan="L6 M6 S10">
+					<l:content>
+						<Image src="{dataShopDetail>/avaUrl}" class="shopDetail-image">
+							<layoutData>
+								<l:GridData span="L2 M2 S8" linebreakL="true" linebreakM="true" linebreakS="true"/>
+							</layoutData>
+						</Image>
+						<VBox class="info-shopdetail">
+							<HBox class="box_btn_rating_shop">
+								<Button id="btn_visible_favorite" visible="{= ${dataShopDetail>/check} === false }" text="{i18n>lb_interested}" press="interestedShop"
+									class="btn_favorite"/>
+								<Button id="btn_visible_unFavorite" visible="{= ${dataShopDetail>/check} === true }" text="{i18n>lb_unInterested}" press="unInterestedShop"
+									class="btn_favorite"/>
+								<VBox class="box_rating_shop">
+									<Title text="{i18n>title_rating_shop}"/>
+									<RatingIndicator id="rating" maxValue="5" class="sapUiSmallMarginBottom" value="0" 
+									tooltip="Rating Tooltip" change="changeRating"/>
+								</VBox>
+							</HBox>
+							<HBox>
+								<Label class="shopDetail-label" text="{i18n>lb_shopName}"/>
+								<Title text="{dataShopDetail>/shopName}" class="customTextShop"/>
+							</HBox>
+							<HBox>
+								<Label class="shopDetail-label" text="{i18n>lb_address_detail}"/>
+								<Title text="{dataShopDetail>/fullAddress}" class="customTextShop"/>
+							</HBox>
+							<HBox>
+								<Label class="shopDetail-label" text="{i18n>lb_phone_detail}"/>
+								<Title text="{dataShopDetail>/phoneNumber}" class="customTextShop"/>
+							</HBox>
+							<HBox>
+								<Label class="shopDetail-label" text="{i18n>lb_facebook_detail}"/>
+								<Link text="{dataShopDetail>/facebook}" target="_blank" href="{dataShopDetail>/facebook}" class="customTextShop"/>
+							</HBox>
+							<HBox>
+								<Label class="shopDetail-label" text="{i18n>lb_countView_detail}"/>
+								<Title text="{dataShopDetail>/viewCount} lượt xem" class="customTextShop"/>
+							</HBox>
+							<HBox>
+								<Label class="shopDetail-label" text="{i18n>lb_rating}"/>
+								<RatingIndicator id="RI_default" maxValue="5" class="sapUiSmallMarginBottom fixCenter customTextShop" value="{dataShopDetail>/rating}"
+									tooltip="Rating Tooltip" displayOnly="true"/>
+							</HBox>
+							<HBox>
+								<Label class="shopDetail-label" text="{i18n>lb_policy_detail}"/>
+								<Text text="{dataShopDetail>/policy}" class="customTextShop"/>
+							</HBox>
+							<HBox class="listCategory-container">
+								<Label class="shopDetail-label" text="{i18n>lb_category_detail}"/>
+								<VBox>
+									<List id="ShortProductList" items="{cateItem>/results}" class="listCategory-container">
+										<CustomListItem>
+											<VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+												<Image src="{cateItem>iconUrl}"/>
+												<Title text="{cateItem>categoryName}"/>
+											</VBox>
+										</CustomListItem>
+									</List>
+								</VBox>
+							</HBox>
+						</VBox>
+					</l:content>
+				</l:Grid>
+				<VBox class="box-btn-and-map">
+					<!--<Button text="{i18n>btn-find-way}" class="btn-findmore" press="navToGGMap"/>-->
+					<Link text="{i18n>btn-find-way}" press="navToGGMap" class="customTextShop"/>
+					<HBox id="map" class="custom-map-shopinfo" height="1000px" fitContainer="true" justifyContent="Center" alignItems="Center"></HBox>
+				</VBox>
+			</VBox>
+		</content>
+	</Page>
+</mvc:View>
