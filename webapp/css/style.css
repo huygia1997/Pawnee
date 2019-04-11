@@ -15,9 +15,31 @@
 }
 .filterBox {
     width: 400px;
+    position: relative;
 }
-.filterBox> div {
-    border-radius: 5px;
+.itemFilter {
+	height: 300px;
+}
+.box_btn_filter {
+	position: absolute;
+	bottom: 90px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.btn-searchByFilter {
+    margin: 0 20px;
+	background-color: #435667;
+    border-radius: 3px;
+}
+.btn-searchByFilter span {
+    background-color: #435667;
+}
+.btn-searchByFilter:hover>.sapMBtnHoverable {
+    background-image: none;
+    background-color: #435667;
+}
+.btn-searchByFilter span bdi {
+    color: #fff;
 }
 .customIntro {
     padding-top: 50px;
@@ -64,9 +86,6 @@
 }
 .btn-register-shop span bdi {
     color: #fff;
-}
-#__data28 {
-    margin-top: 20px;
 }
 .customListItem {
     width: 100%;

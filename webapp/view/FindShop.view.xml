@@ -1,5 +1,5 @@
 <mvc:View controllerName="sap.ui.demo.basicTemplate.controller.FindShop" displayBlock="true" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
-	xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" >
+	xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
 	<Page>
 		<headerContent>
 			<Bar>
@@ -94,7 +94,8 @@
 						</VBox>
 						<Button text="{i18n>btn_openMap}" press="navToMap" class="btn-location"/>
 					</HBox>
-					<List id="ShortProductList" headerText="{i18n>title_shopsItem}" items="{dataSearchShop>/results}" class="customListFilterShop">
+					<List growing="true" growingThreshold="10" growingScrollToLoad="true" growingStarted="loadMoreShop" id="ShortProductList"
+						headerText="{i18n>title_shopsItem}" items="{dataSearchShop>/results}" class="customListFilterShop">
 						<CustomListItem type="Navigation" press="selectShop">
 							<HBox>
 								<Image src="{dataSearchShop>avatarUrl}" class="listShopImage"/>

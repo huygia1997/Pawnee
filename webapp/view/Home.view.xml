@@ -73,9 +73,11 @@
 								</fb:control>
 							</fb:FilterItem>
 						</fb:filterItems>
-						<Button text="{i18n>btn_searchByFields}" press="searchPlaceByForm" class="btn-searchByFilter"/>
-						<Button text="{i18n>nearByLocation}" press="navToMapPage"/>
 					</fb:FilterBar>
+					<HBox class="box_btn_filter">
+						<Button text="{i18n>btn_searchByFields}" press="searchPlaceByForm" class="btn-searchByFilter"/>
+						<Button text="{i18n>nearByLocation}" press="navToMapPage" class="btn-searchByFilter"/>
+					</HBox>
 				</VBox>
 				<VBox class="customIntro">
 					<Title text="{i18n>introduction}"/>
@@ -130,9 +132,7 @@
 							<HBox class="hbox_listItem">
 								<Label text="{i18n>lb_price}" class="lb_item"/>
 								<Text
-									text="{ parts: [ {path: 'oModelItem>price'}, 
-									{path: 'global>/currencyCode'} ],
-									type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: false } }"
+									text="{ parts: [ {path: 'oModelItem>price'}, {path: 'global>/currencyCode'} ], type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: false } }"
 									class="fixCenter"/>
 							</HBox>
 							<HBox class="hbox_listItem">

@@ -69,11 +69,12 @@
 						</items>
 					</Select>
 				</VBox>
-				<List id="ShortProductList" items="{bestItem>/results}" class="customListItem">
+				<List id="ShortProductList" items="{bestItem>/results}" class="customListItem" growing="true" growingThreshold="10"
+					growingScrollToLoad="true" growingStarted="loadMoreShop">
 					<CustomListItem type="Navigation" press="selectItem">
 						<HBox>
 							<VBox width="100%">
-								<Image class="img_item" src="{bestItem>picUrl}" />
+								<Image class="img_item" src="{bestItem>picUrl}"/>
 								<HBox class="hbox_listItem">
 									<Label text="{i18n>lb_itemName}" class="lb_item"/>
 									<Title text="{bestItem>itemName}" class="fixCenter title_saleItem"/>
