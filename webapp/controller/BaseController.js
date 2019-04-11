@@ -180,8 +180,8 @@ sap.ui.define([
 
 			var that = this;
 			var loginModel = this._LoginDialog.getModel("loginResult");
-			var username = this.getView().byId("userName").getValue();
-			var passwordValue = this.getView().byId("passwordUser").getValue();
+			var username = this.getView().byId("txtEmail").getValue();
+			var passwordValue = this.getView().byId("txtPassword").getValue();
 			var user = loginModel.getProperty("/username");
 			var checkEmail = this.validateEmailGlobal(user);
 			var password = loginModel.getProperty("/password");
@@ -239,10 +239,6 @@ sap.ui.define([
 		},
 		backToHome: function() {
 			this.getRouter().navTo("home");
-		},
-
-		sellItems: function() {
-			this.getRouter().navTo("sellItem");
 		},
 
 		/*************************************************************************************************/

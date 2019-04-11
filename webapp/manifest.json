@@ -110,10 +110,10 @@
 					"shopDetail"
 				]
 			}, {
-				"pattern": "SellItem",
-				"name": "sellItem",
+				"pattern": "SaleItem",
+				"name": "saleItem",
 				"target": [
-					"sellItem"
+					"saleItem"
 				]
 			}, {
 				"pattern": "UserDetail",
@@ -175,9 +175,9 @@
 					"viewId": "shopDetail",
 					"controlId": "app"
 				},
-				"sellItem": {
-					"viewName": "SellItem",
-					"viewId": "sellItem",
+				"saleItem": {
+					"viewName": "SaleItem",
+					"viewId": "saleItem",
 					"controlId": "app"
 				},
 				"userDetail": {

@@ -1,4 +1,4 @@
-<mvc:View controllerName="sap.ui.demo.basicTemplate.controller.SellItem" displayBlock="true" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+<mvc:View controllerName="sap.ui.demo.basicTemplate.controller.SaleItem" displayBlock="true" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:tnt="sap.tnt" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
 	<Page>
 		<headerContent>
@@ -58,7 +58,7 @@
 			<VBox>
 				<VBox width="200px" class="box_select_sort_item">
 					<Label text="{i18n>lb_sort}" class="label_for_btn"/>
-					<Select width="100%" forceSelection="false" change="onChangeSort" selectedKey="6" id="filterSort">
+					<Select width="100%" forceSelection="false" change="onChangeSort" selectedKey="1" id="filterSort">
 						<items>
 							<core:Item key="6" text="{i18n>select_all}"/>
 							<core:Item key="1" text="{i18n>select_new_item}"/>

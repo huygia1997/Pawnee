@@ -6,7 +6,7 @@ sap.ui.define([
 ], function(BaseController, formatter, models, JSONModel) {
 	"use strict";
 
-	return BaseController.extend("sap.ui.demo.basicTemplate.controller.SellItem", {
+	return BaseController.extend("sap.ui.demo.basicTemplate.controller.SaleItem", {
 
 		formatter: formatter,
 
@@ -14,7 +14,7 @@ sap.ui.define([
 			this.isLogging();
 			var oRouter = this.getRouter();
 			this.keySort = false;
-			oRouter.getRoute("sellItem").attachPatternMatched(this._onRouteMatched, this);
+			oRouter.getRoute("saleItem").attachPatternMatched(this._onRouteMatched, this);
 		},
 
 		_onRouteMatched: function(oEvent) {
@@ -33,12 +33,14 @@ sap.ui.define([
 				// getItem = models.getBestSaleItem();
 			} else {
 				getItem = models.getItemBySort(keySort, page, idCate);
+				this.keySort = false;
 			}
+			this.getView().byId("filterSort").setProperty("selectedKey", 1);
 			if (getItem) {
-					oModelItem.setData({
-						results: getItem
-					});
-				}
+				oModelItem.setData({
+					results: getItem
+				});
+			}
 			this.setModel(oModelItem, "bestItem");
 		},
 
@@ -55,9 +57,13 @@ sap.ui.define([
 
 		onChangeSort: function() {
 			var keySort = this.getView().byId("filterSort").getSelectedItem().getKey();
-			this.keySort = true;
-			var cateId = this.idCate;
-			this.getAllItem(keySort, 0, cateId);
+			if (keySort != 6) {
+				this.keySort = true;
+				var cateId = this.idCate;
+				this.getAllItem(keySort, 0, cateId);
+			} else {
+				this.getAllItem();
+			}
 		},
 
 		selectOptionCate: function(oEvent) {

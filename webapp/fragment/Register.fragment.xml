@@ -9,11 +9,11 @@
 							<Label design="Bold" text="Email"/>
 							<Input width="100%" 
 								id="emailRegister" 
-								type="Email" placeholder="Enter Email..." change="validateEmail"/>
+								type="Email" change="validateEmail"/>
 							<Label design="Bold" text="Password"/>
-							<Input maxLength="10" type="Password" width="100%" id="passwordRegister" placeholder="Enter Password" />
-							<Label design="Bold" text="rePassword"/>
-							<Input maxLength="10" type="Password" width="100%" id="rePasswordRegister" placeholder="Enter Password" />
+							<Input maxLength="10" type="Password" width="100%" id="passwordRegister" />
+							<Label design="Bold" text="Nhập lại Password"/>
+							<Input maxLength="10" type="Password" width="100%" id="rePasswordRegister" />
 							<Button text="Đăng Ký" press="checkInputRegister"/>
 						</sap.ui.layout.form:SimpleForm>
 					</items>

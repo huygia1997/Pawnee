@@ -145,7 +145,7 @@
 					</HBox>
 				</CustomListItem>
 			</List>
-			<Button text="{i18n>btn_showAllItem}" press="sellItems" class="btn-showAll"/>
+			<Button text="{i18n>btn_showAllItem}" press="onSaleItemPress" class="btn-showAll"/>
 		</content>
 		<footer/>
 	</Page>

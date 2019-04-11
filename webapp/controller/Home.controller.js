@@ -206,6 +206,10 @@ sap.ui.define([
 					itemId: itemId
 				}, false);
 			}
+		},
+
+		onSaleItemPress: function() {
+			this.getRouter().navTo("saleItem");
 		}
 	});
 });

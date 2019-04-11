@@ -7,9 +7,12 @@
 					<items>
 						<sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" editable="true" layout="ResponsiveGridLayout">
 							<Label design="Bold" text="Email"/>
-							<Input value="{loginResult>/username}" width="100%" id="userName" change="validateEmail" placeholder="{i18n>username}"/>
+							<Input value="{loginResult>/username}" width="100%" id="txtEmail" change="validateEmail" />
 							<Label design="Bold" text="Password"/>
-							<Input value="{loginResult>/password}" maxLength="20" type="Password" width="100%" id="passwordUser" placeholder="{i18n>password}"/>
+							<Input value="{loginResult>/password}" maxLength="20" type="Password" width="100%" id="txtPassword" />
+							<VBox class="box_forgetPassword">
+								<Link press="onForgetPassword" text="{i18n>link_forgetPassword}" />
+							</VBox>
 							<Button busy="{= ${loginResult>/isLogging} ? true : false}"
 							text="{= ${loginResult>/isLogging} ? ${i18n>btn_login_logging} : ${i18n>btn_login}}" press="checkLogin"/>
 						</sap.ui.layout.form:SimpleForm>

@@ -474,6 +474,11 @@
 .box_itemDetail {
 	margin: 10px;
 }
+.box_forgetPassword {
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+}
 @media screen and (min-device-width: 375px) and (max-device-width: 768px) {
     .customIntro {
         display: none;
