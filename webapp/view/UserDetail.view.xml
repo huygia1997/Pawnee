@@ -50,7 +50,7 @@
 					<IconTabFilter icon="sap-icon://hint" iconColor="Positive" text="{i18n>tab_myaccount}">
 						<VBox width="{= ${device>/system/phone} ? '100%' : '500px' }">
 							<HBox class="box_image_userInfo">
-								<Image class="img_userInfo" id="img_user" src="{dataUser>/avaURL}"/>
+								<Image class="img_userInfo" id="img_user" src="{dataUser>/avatar}"/>
 								<u:FileUploader iconOnly="true" multiple="false" buttonOnly="true" icon="sap-icon://add-photo" uploadOnChange="false" useMultipart="false"
 									fileType="JPG,JPEG,jpeg,jpg,PNG,png" sameFilenameAllowed="true" typeMissmatch="onTypeMissmatch" change="onUploadPress"/>
 							</HBox>
@@ -111,6 +111,23 @@
 						</Table>
 					</IconTabFilter>
 					<IconTabSeparator icon=""/>
+					<IconTabFilter icon="sap-icon://cart-approval" iconColor="Default" text="{i18n>tab_favoriteItem}">
+						<List id="ListItem" items="{oModelItem>/results}" class="itemFavorite_container">
+							<CustomListItem type="Navigation" press="selectItem">
+								<VBox>
+									<Image src="{oModelItem>picUrl}" class="itemFavorite_image"/>
+									<HBox class="itemUserDetail">
+										<Title text="{oModelItem>itemName}" class="title_itemFa"/>
+									</HBox>
+									<HBox class="itemUserDetail">
+										<Title
+											text="{ parts: [ {path: 'oModelItem>price'}, {path: 'global>/currencyCode'} ], type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: false } }"
+											class="title_itemFa"/>
+									</HBox>
+								</VBox>
+							</CustomListItem>
+						</List>
+					</IconTabFilter>
 					<IconTabFilter icon="sap-icon://unlocked" iconColor="Negative" text="{i18n>tab_forgetPassword}">
 						<VBox width="{= ${device>/system/phone} ? '100%' : '500px' }">
 							<Title text="{i18n>title_change_password}"/>

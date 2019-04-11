@@ -47,8 +47,8 @@
 				titleLevel="Auto" backgroundDesign="Solid" condensed="true" responsive="true" numberState="Warning"></sap.m:ObjectHeader>
 			<VBox fitContainer="true" justifyContent="Center" alignItems="Center" class="customMap">
 				<HBox>
-					<Title text="{titleModel>/title}" class="title-findmore"/>
-					<Button text="{i18n>btn_findMore}" press="findMore" class="btn-findmore"/>
+					<Title id="Title" text="{titleModel>/title}" class="title-findmore"/>
+					<Button text="{i18n>btn_findMore}" press="onfindMorePress" class="btn-findmore"/>
 				</HBox>
 				<HBox id="map_canvas" fitContainer="true" justifyContent="Center" alignItems="Center"></HBox>
 			</VBox>

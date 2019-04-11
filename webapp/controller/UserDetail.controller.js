@@ -47,6 +47,13 @@ sap.ui.define([
 					results: listTrans
 				});
 				this.setModel(dataTrans, "dataTrans");
+
+				var listItem = getData.listFavoriteItem;
+				var oModelItem = new JSONModel();
+				oModelItem.setData({
+					results: listItem
+				});
+				this.setModel(oModelItem, "oModelItem");
 			}
 		},
 
@@ -95,7 +102,7 @@ sap.ui.define([
 					if (!getModelUserInfo) {
 						return;
 					}
-					getModelUserInfo.setProperty("/avaURL", encodeURI(oEvt.data.link));
+					getModelUserInfo.setProperty("/avatar", encodeURI(oEvt.data.link));
 					// pics.push({
 					// 	url: encodeURI(oEvt.data.link)
 					// });
@@ -143,6 +150,17 @@ sap.ui.define([
 			xhr.setRequestHeader("Authorization", "Bearer 5c25e781ffc7f495059078408c311799e277d70e"); //"application/x-www-form-urlencoded");
 			var data = base64string;
 			xhr.send(data);
+		},
+
+		selectItem: function(oEvent) {
+			var item = oEvent.getSource();
+			var bindingContext = item.getBindingContext("oModelItem");
+			if (bindingContext) {
+				var itemId = bindingContext.getProperty("id");
+				this.getRouter().navTo("itemDetail", {
+					itemId: itemId
+				}, false);
+			}
 		}
 	});
 });

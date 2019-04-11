@@ -6,7 +6,7 @@ sap.ui.define([
 	'sap/m/MessageBox'
 ], function(BaseController, formatter, JSONModel, models, MessageBox) {
 	"use strict";
-
+	var arrayView = [];
 	return BaseController.extend("sap.ui.demo.basicTemplate.controller.ItemDetail", {
 
 		formatter: formatter,
@@ -22,11 +22,36 @@ sap.ui.define([
 			var itemId = oEvent.getParameter("arguments").itemId;
 			var userId = this.getGlobalModel().getProperty("/accountId");
 
+			var checkView = sessionStorage.getItem("checkItem");
+			this.check = false;
+			if (!checkView) {
+				sessionStorage.setItem("checkItem", itemId);
+			} else {
+				sessionStorage.removeItem("checkItem");
+				arrayView = checkView.split(",");
+				var hasValue = false;
+				for (var i = 0; i < arrayView.length; i++) {
+					if (arrayView[i] === itemId) {
+						this.check = true;
+						hasValue = true;
+					}
+				}
+				if (!hasValue) {
+					arrayView.push(itemId);
+				}
+				sessionStorage.setItem("checkItem", arrayView);
+			}
+
 			var oModelItem = new JSONModel();
 			var oModelImages = new JSONModel();
 			var oModelShop = new JSONModel();
-
-			var getItemDetail = models.getItemDetail(itemId, userId);
+			var getItemDetail;
+			if (this.check) {
+				var increaseView = true;
+				getItemDetail = models.getItemDetail(itemId, userId, increaseView);
+			} else {
+				getItemDetail = models.getItemDetail(itemId, userId);
+			}
 			if (getItemDetail) {
 				oModelItem.setData(getItemDetail);
 				oModelImages.setData({
@@ -40,10 +65,10 @@ sap.ui.define([
 			this.setModel(oModelImages, "oModelImages");
 			this.visibleButton();
 		},
-		
+
 		shopContact: function() {
 			var userId = this.getGlobalModel().getProperty("/accountId");
-			if(userId) {
+			if (userId) {
 				var item = this.getModel("oModelItem").getProperty("/shop");
 				var shopId = item.id;
 				this.getRouter().navTo("shopDetail", {

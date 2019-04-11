@@ -16,13 +16,17 @@
 .filterBox {
     width: 400px;
     position: relative;
+    height: 350px;
 }
 .itemFilter {
 	height: 300px;
 }
+.box_display_listShop {
+	margin-left: 15px;
+}
 .box_btn_filter {
 	position: absolute;
-	bottom: 90px;
+	bottom: 40px;
 	left: 50%;
 	transform: translateX(-50%);
 }
@@ -40,6 +44,9 @@
 }
 .btn-searchByFilter span bdi {
     color: #fff;
+}
+.select_box_filter {
+	width: 300px !important;
 }
 .customIntro {
     padding-top: 50px;
@@ -182,9 +189,6 @@
 }
 .listshop-image {
     width: 100px;
-}
-.find-filter {
-    width: 350px;
 }
 .margin_left {
     margin-left: 10px;
@@ -497,6 +501,27 @@
 	display: inline-block;
 	width: 100%;
 	text-align: center;
+}
+.itemFavorite_container ul {
+    display: inline-block;
+    width: 100%;
+}
+.itemFavorite_container ul li {
+    display: inline-block;
+    width: 20%;
+    padding: 10px;
+    border: none;
+}
+.itemFavorite_image {
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+}
+.lb_itemFavorite {
+    margin-right: 10px
+}
+.title_itemFa {
+    white-space: normal !important;
 }
 @media screen and (min-device-width: 375px) and (max-device-width: 768px) {
     .customIntro {

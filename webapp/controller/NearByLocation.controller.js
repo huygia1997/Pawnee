@@ -99,7 +99,7 @@ sap.ui.define([
 			this.addMarker(position, data);
 		},
 
-		findMore: function() {
+		onfindMorePress: function() {
 			if (count < 2) {
 				this.clearMarker();
 			}

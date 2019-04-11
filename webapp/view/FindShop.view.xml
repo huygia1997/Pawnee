@@ -46,13 +46,14 @@
 			<sap.m:ObjectHeader xmlns:sap.m="sap.m" title="{i18n>title_findShop}" intro="{i18n>intro_nearByLocation}" fullScreenOptimized="true"
 				titleLevel="Auto" backgroundDesign="Solid" condensed="true" responsive="true" numberState="Warning"></sap.m:ObjectHeader>
 			<HBox width="100%" class="box_filter_and_shop">
-				<VBox width="31%">
-					<fb:FilterBar class="find-filter" id="filterbar" search="onSearch" useToolbar="false" showGoOnFB="false" showFilterConfiguration="false">
+				<VBox class="filterBox">
+					<fb:FilterBar class="find-filter itemFilter" id="filterbar" 
+					search="onSearch" useToolbar="false" showGoOnFB="false" showFilterConfiguration="false">
 						<fb:filterItems>
 							<fb:FilterItem name="A" label="{i18n>lbl_city}">
 								<fb:control>
 									<Select forceSelection="false" change="onChangeCity" selectedKey="{dataCity>/selectedCity}" id="filterCity"
-										items="{ path: 'dataCity>/results', templateShareable: false }">
+										items="{ path: 'dataCity>/results', templateShareable: false }" class="select_box_filter">
 										<items>
 											<core:Item key="{dataCity>id}" text="{dataCity>cityName}"/>
 										</items>
@@ -61,25 +62,25 @@
 							</fb:FilterItem>
 							<fb:FilterItem name="B" label="{i18n>lbl_region}">
 								<fb:control>
-									<Select id="filterDistrict" selectItemId="{dataDis>id}" items="{dataDis>/results}">
+									<Select id="filterDistrict" selectItemId="{dataDis>id}" items="{dataDis>/results}" class="select_box_filter">
 										<core:Item key="{dataDis>id}" text="{dataDis>districtName}"/>
 									</Select>
 								</fb:control>
 							</fb:FilterItem>
 							<fb:FilterItem name="D" label="{i18n>lbl_category}">
 								<fb:control>
-									<Select id="filterItem" selectItemId="{dataCate>id}" items="{dataCate>/results}">
+									<Select id="filterItem" selectItemId="{dataCate>id}" items="{dataCate>/results}" class="select_box_filter">
 										<core:Item key="{dataCate>id}" text="{dataCate>categoryName}"/>
 									</Select>
 								</fb:control>
 							</fb:FilterItem>
 						</fb:filterItems>
-						<VBox class="box_btn_searchByFilter">
-							<Button text="{i18n>btn_searchByFields}" press="searchPlaceByForm" class="btn-searchByFilter"></Button>
-						</VBox>
 					</fb:FilterBar>
+					<HBox class="box_btn_filter">
+						<Button text="{i18n>btn_searchByFields}" press="searchPlaceByForm" class="btn-searchByFilter"/>
+					</HBox>
 				</VBox>
-				<VBox width="69%">
+				<VBox width="68%" class="box_display_listShop">
 					<HBox width="100%" class="box_select_container">
 						<VBox width="300px" class="box_select_sort">
 							<Label text="{i18n>lb_sort}" class="label_for_btn"/>
@@ -94,7 +95,7 @@
 						</VBox>
 						<Button text="{i18n>btn_openMap}" press="navToMap" class="btn-location"/>
 					</HBox>
-					<List growing="true" growingThreshold="10" growingScrollToLoad="true" growingStarted="loadMoreShop" id="ShortProductList"
+					<List growing="true" growingThreshold="10" growingScrollToLoad="true" growingStarted="loadMoreShop" id="ListShopByFilter"
 						headerText="{i18n>title_shopsItem}" items="{dataSearchShop>/results}" class="customListFilterShop">
 						<CustomListItem type="Navigation" press="selectShop">
 							<HBox>

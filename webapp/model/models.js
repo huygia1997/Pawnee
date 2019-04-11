@@ -292,7 +292,7 @@ sap.ui.define([
 					} else {
 						url = serverInfo.url + "/thong-tin-cua-hang?shopId=" + shopId + "&increaseView=" + increaseView;
 					}
-				} else  {
+				} else {
 					if (userId) {
 						url = serverInfo.url + "/thong-tin-cua-hang?shopId=" + shopId + "&userId=" + userId;
 					} else {
@@ -497,18 +497,25 @@ sap.ui.define([
 			return data;
 		},
 
-		getItemDetail: function(itemId, userId) {
+		getItemDetail: function(itemId, userId, increaseView) {
 			var data;
 			var url;
 			if (serverInfo.useLocal) {
 				url = serverInfo.localUrl + "/shop.json";
 			} else {
-				if (userId) {
-					url = serverInfo.url + "/thong-tin-san-pham?itemId=" + itemId + "&userId=" + userId;
+				if (increaseView) {
+					if (userId) {
+						url = serverInfo.url + "/thong-tin-san-pham?itemId=" + itemId + "&userId=" + userId + "&increaseView=" + increaseView;
+					} else {
+						url = serverInfo.url + "/thong-tin-san-pham?itemId=" + itemId + "&increaseView=" + increaseView;
+					}
 				} else {
-					url = serverInfo.url + "/thong-tin-san-pham?itemId=" + itemId;
+					if (userId) {
+						url = serverInfo.url + "/thong-tin-san-pham?itemId=" + itemId + "&userId=" + userId;
+					} else {
+						url = serverInfo.url + "/thong-tin-san-pham?itemId=" + itemId;
+					}
 				}
-
 			}
 			$.ajax({
 				type: "GET",

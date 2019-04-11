@@ -46,8 +46,8 @@ sap.ui.define([
 			}
 			var getData;
 			if (this.check) {
-				var isFromAdminPage = true;
-				getData = models.getShopDetail(shopId, userId, isFromAdminPage);
+				var increaseView = true;
+				getData = models.getShopDetail(shopId, userId, increaseView);
 			} else {
 				getData = models.getShopDetail(shopId, userId);
 			}
