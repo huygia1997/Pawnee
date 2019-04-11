@@ -31,6 +31,7 @@ sap.ui.define([
 			this.setModel(models.createNotiModel(), "noti");
 			
 			this.setModel(globalModel, "globalProperties");
+			this.setModel(models.createGlobalModel(), "global");
 			// this.getModel("alert").loadData("http://192.168.2.97:8080/get-notification?id=2");
 			// set the device model
 			this.setModel(models.createDeviceModel(), "device");

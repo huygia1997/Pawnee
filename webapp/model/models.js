@@ -22,6 +22,16 @@ sap.ui.define([
 			// setInterval(this.getNoti, 100000, ms);
 			return model;
 		},
+		createGlobalModel: function() {
+			return new JSONModel({
+				"user": "",
+				"currencyCode": "VND",
+				"name": "",
+				"token": "none",
+				"accountId": "",
+				"appTitleIcon": "sap-icon://home"
+			});
+		},
 		checkLogin: function(username, password) {
 			var data;
 			var ajaxData = {
@@ -220,13 +230,13 @@ sap.ui.define([
 			return data;
 		},
 
-		getLocationNearBy: function(lat, lng) {
+		getLocationNearBy: function(lat, lng, radius) {
 			var data;
 			var url;
 			if (serverInfo.useLocal) {
 				url = serverInfo.localUrl + "/location.json";
 			} else {
-				url = serverInfo.url + "/search/shops/nearby?lat=" + lat + "&lng=" + lng;
+				url = serverInfo.url + "/search/shops/nearby?lat=" + lat + "&lng=" + lng + "&radius=" + radius;
 			}
 			$.ajax({
 				type: "GET",
@@ -270,17 +280,26 @@ sap.ui.define([
 			return data;
 		},
 
-		getShopDetail: function(shopId, userId) {
+		getShopDetail: function(shopId, userId, isFromAdminPage) {
 			var data = [];
 			var url;
 			if (serverInfo.useLocal) {
 				url = serverInfo.localUrl + "/shopDetail.json";
 			} else {
-				if (userId) {
-					url = serverInfo.url + "/thong-tin-cua-hang?shopId=" + shopId + "&userId=" + userId;
-				} else {
-					url = serverInfo.url + "/thong-tin-cua-hang?shopId=" + shopId;
+				if (isFromAdminPage) {
+					if (userId) {
+						url = serverInfo.url + "/thong-tin-cua-hang?shopId=" + shopId + "&userId=" + userId + "&isFromAdminPage=" + isFromAdminPage;
+					} else {
+						url = serverInfo.url + "/thong-tin-cua-hang?shopId=" + shopId + "&isFromAdminPage=" + isFromAdminPage;
+					}
+				} else  {
+					if (userId) {
+						url = serverInfo.url + "/thong-tin-cua-hang?shopId=" + shopId + "&userId=" + userId;
+					} else {
+						url = serverInfo.url + "/thong-tin-cua-hang?shopId=" + shopId;
+					}
 				}
+
 			}
 			$.ajax({
 				type: "GET",

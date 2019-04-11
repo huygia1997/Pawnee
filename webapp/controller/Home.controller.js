@@ -15,9 +15,7 @@ sap.ui.define([
 
 		onInit: function() {
 			this.isLogging();
-			this.getMyLocation();
-			var lat = this.getGlobalModel().getProperty("/lat");
-			var lng = this.getGlobalModel().getProperty("/lng");
+			
 			var oRouter = this.getRouter();
 			oRouter.getRoute("home").attachPatternMatched(this._onRouteMatched, this);
 
@@ -27,8 +25,7 @@ sap.ui.define([
 			}
 			var oModel = new JSONModel();
 			this.setModel(oModel, "dataCity");
-
-			this.getBestSale(lat, lng);
+			
 
 		},
 
@@ -45,7 +42,11 @@ sap.ui.define([
 			this.getDataCity();
 			this.getDataCategory();
 			/***************************************************/
+			this.getMyLocation();
+			var lat = this.getGlobalModel().getProperty("/lat");
+			var lng = this.getGlobalModel().getProperty("/lng");
 
+			this.getBestSale(lat, lng);
 		},
 
 		getDataCategory: function() {

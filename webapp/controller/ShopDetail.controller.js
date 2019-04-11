@@ -7,7 +7,7 @@ sap.ui.define([
 ], function(BaseController, formatter, JSONModel, models, MessageBox) {
 	"use strict";
 
-	var gMap;
+	var gMap, arrayView = [];
 	return BaseController.extend("sap.ui.demo.basicTemplate.controller.ShopDetail", {
 
 		formatter: formatter,
@@ -23,11 +23,37 @@ sap.ui.define([
 		_onRouteMatched: function(oEvent) {
 			var shopId = oEvent.getParameter("arguments").shopId;
 			var userId = this.getGlobalModel().getProperty("/accountId");
-			var getData = models.getShopDetail(shopId, userId);
+			var checkView = sessionStorage.getItem("check");
+			this.check = false;
+			if (!checkView) {
+				sessionStorage.setItem("check", shopId);
+			} else {
+				sessionStorage.removeItem("check");
+				arrayView = checkView.split(",");
+				var hasValue = false;
+				for (var i = 0; i < arrayView.length; i++) {
+					if (arrayView[i] === shopId) {
+						this.check = true;
+						hasValue = true;
+					}
+				}
+				if (!hasValue) {
+					arrayView.push(shopId);
+				}
+				sessionStorage.setItem("check", arrayView);
+			}
+			var getData;
+			if (this.check) {
+				var isFromAdminPage = true;
+				getData = models.getShopDetail(shopId, userId, isFromAdminPage);
+			} else {
+				getData = models.getShopDetail(shopId, userId);
+			}
 			if (getData) {
 				this.getDataShop(getData);
 				this.getCateItem(getData);
 			}
+
 			this.visibleButton();
 		},
 

@@ -46,8 +46,7 @@
 		<content>
 			<HBox width="{= ${device>/system/phone} ? '100%' : '700px' }" class="customFilterBox">
 				<VBox class="filterBox">
-					<fb:FilterBar id="filterbar" 
-						search="onSearch" useToolbar="false" showGoOnFB="false" showFilterConfiguration="false" class="itemFilter">
+					<fb:FilterBar id="filterbar" search="onSearch" useToolbar="false" showGoOnFB="false" showFilterConfiguration="false" class="itemFilter">
 						<fb:filterItems>
 							<fb:FilterItem name="A" label="{i18n>lbl_city}">
 								<fb:control>
@@ -123,14 +122,18 @@
 				<CustomListItem type="Navigation" press="selectItem">
 					<HBox>
 						<VBox width="100%">
-							<Image class="img_item" src="{oModelItem>picUrl}" />
+							<Image class="img_item" src="{oModelItem>picUrl}"/>
 							<HBox class="hbox_listItem">
 								<Label text="{i18n>lb_itemName}" class="lb_item"/>
 								<Title text="{oModelItem>itemName}" class="title_saleItem"/>
 							</HBox>
 							<HBox class="hbox_listItem">
 								<Label text="{i18n>lb_price}" class="lb_item"/>
-								<Title text="{oModelItem>price} VNĐ" class="fixCenter"/>
+								<Text
+									text="{ parts: [ {path: 'oModelItem>price'}, 
+									{path: 'global>/currencyCode'} ],
+									type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: false } }"
+									class="fixCenter"/>
 							</HBox>
 							<HBox class="hbox_listItem">
 								<Label text="{i18n>lb_liquidationDate}" class="lb_item"/>

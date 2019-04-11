@@ -23,6 +23,7 @@ sap.ui.define([
 		},
 
 		_onRouteMatched: function(oEvent) {
+			this.radius = 5;
 			this.lat = oEvent.getParameter("arguments").lat;
 			this.lng = oEvent.getParameter("arguments").lng;
 			var latLong = new google.maps.LatLng(this.lat, this.lng);
@@ -49,11 +50,12 @@ sap.ui.define([
 		},
 
 		getAllMarker: function(lat, lng, count) {
+			var radius = this.radius;
 			var titleModel = new JSONModel({
 				title: ""
 			});
 			this.setModel(titleModel, "titleModel");
-			var getData = models.getLocationNearBy(lat, lng);
+			var getData = models.getLocationNearBy(lat, lng, radius);
 			if (getData) {
 				for (var i = 0; i < getData.length; i++) {
 					dataLocation.push(getData[i]);
@@ -92,6 +94,10 @@ sap.ui.define([
 				this.clearMarker();
 			}
 			count++;
+			if (count == 3) {
+				this.radius = 10;
+				this.getAllMarker(this.lat, this.lng);
+			}
 			for (var i = 0; i < dataLocation.length; i++) {
 				var list = dataLocation[i].address;
 				var latShop = list.latitude;
@@ -108,8 +114,13 @@ sap.ui.define([
 						this.getPositionOfMarker(latShop, lngShop, shopName);
 						this.getModel("titleModel").setProperty("/title", "Kết quả tìm kiếm 'gần đây 5km'");
 					}
+				} else if (count == 3) {
+					if (distance <= 10000) {
+						this.getPositionOfMarker(latShop, lngShop, shopName);
+						this.getModel("titleModel").setProperty("/title", "Kết quả tìm kiếm 'gần đây 10km'");
+					}
 				} else {
-					this.getModel("titleModel").setProperty("/title", "Chỉ tìm kiếm trong vòng bán kính 5km!");
+					this.getModel("titleModel").setProperty("/title", "Chỉ tìm kiếm trong vòng bán kính 10km!");
 				}
 			}
 		},
