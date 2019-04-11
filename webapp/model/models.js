@@ -280,17 +280,17 @@ sap.ui.define([
 			return data;
 		},
 
-		getShopDetail: function(shopId, userId, isFromAdminPage) {
+		getShopDetail: function(shopId, userId, increaseView) {
 			var data = [];
 			var url;
 			if (serverInfo.useLocal) {
 				url = serverInfo.localUrl + "/shopDetail.json";
 			} else {
-				if (isFromAdminPage) {
+				if (increaseView) {
 					if (userId) {
-						url = serverInfo.url + "/thong-tin-cua-hang?shopId=" + shopId + "&userId=" + userId + "&isFromAdminPage=" + isFromAdminPage;
+						url = serverInfo.url + "/thong-tin-cua-hang?shopId=" + shopId + "&userId=" + userId + "&increaseView=" + increaseView;
 					} else {
-						url = serverInfo.url + "/thong-tin-cua-hang?shopId=" + shopId + "&isFromAdminPage=" + isFromAdminPage;
+						url = serverInfo.url + "/thong-tin-cua-hang?shopId=" + shopId + "&increaseView=" + increaseView;
 					}
 				} else  {
 					if (userId) {
