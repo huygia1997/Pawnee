@@ -9,7 +9,6 @@ sap.ui.define([
 		formatter: formatter,
 
 		onInit: function () {
-			console.log("abc");
 
 		}
 	});

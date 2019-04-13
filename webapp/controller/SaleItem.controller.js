@@ -2,8 +2,10 @@ sap.ui.define([
 	"sap/ui/demo/basicTemplate/controller/BaseController",
 	"sap/ui/demo/basicTemplate/model/formatter",
 	"sap/ui/demo/basicTemplate/model/models",
-	"sap/ui/model/json/JSONModel"
-], function(BaseController, formatter, models, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator"
+], function(BaseController, formatter, models, JSONModel, Filter, FilterOperator) {
 	"use strict";
 
 	return BaseController.extend("sap.ui.demo.basicTemplate.controller.SaleItem", {
@@ -86,6 +88,31 @@ sap.ui.define([
 					itemId: itemId
 				}, false);
 			}
+		},
+
+		onSearchItem: function(oEvent) {
+			// var getModel = this.getModel("bestItem");
+			// var value = oEvent.getParameter("query");
+			// if (value) {
+			// 	var getItem = models.searchItemByKeyword(value);
+			// 	if (getItem) {
+			// 		getModel.setData({
+			// 			results: getItem
+			// 		});
+			// 		getModel.updateBindings(true);
+			// 	}
+			// }
+			// build filter array
+			var aFilter = [];
+			var sQuery = oEvent.getParameter("query");
+			if (sQuery) {
+				aFilter.push(new Filter("itemName", FilterOperator.Contains, sQuery));
+			}
+
+			// filter binding
+			var oList = this.getView().byId("ShortProductList");
+			var oBinding = oList.getBinding("items");
+			oBinding.filter(aFilter);
 		}
 	});
 });

@@ -11,7 +11,6 @@ sap.ui.define([
 		formatter: formatter,
 
 		onInit: function() {
-			console.log("abc");
 			var oRouter = this.getRouter();
 			var activateModel = new JSONModel({
 				text: "",

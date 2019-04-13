@@ -47,7 +47,7 @@
 				titleLevel="Auto" backgroundDesign="Solid" condensed="true" responsive="true" numberState="Warning"></sap.m:ObjectHeader>
 			<IconTabBar expandable="false" expanded="true" id="idIconTabBarSeparatorNoIcon" class="sapUiResponsiveContentPadding">
 				<items>
-					<IconTabFilter icon="sap-icon://hint" iconColor="Positive" text="{i18n>tab_myaccount}">
+					<IconTabFilter icon="sap-icon://hint" iconColor="Positive" text="{i18n>tab_myaccount}" class="iconTab_userinfo">
 						<VBox width="{= ${device>/system/phone} ? '100%' : '500px' }">
 							<HBox class="box_image_userInfo">
 								<Image class="img_userInfo" id="img_user" src="{dataUser>/avatar}"/>
@@ -67,13 +67,13 @@
 						</VBox>
 					</IconTabFilter>
 					<IconTabSeparator icon=""/>
-					<IconTabFilter icon="sap-icon://bell" text="{i18n>tab_notify}" iconColor="Negative">
+					<IconTabFilter icon="sap-icon://bell" text="{i18n>tab_notify}" iconColor="Negative" class="iconTab_userinfo">
 						<List id="ShortProductList" headerText="{i18n>tab_notify}" items="{dataNotify>/results}">
 							<StandardListItem title="{dataNotify>message}" description="{dataNotify>createTime}" iconDensityAware="false" type="Navigation"
 								iconInset="false" press="selectShop"/>
 						</List>
 					</IconTabFilter>
-					<IconTabFilter icon="sap-icon://notes" text="{i18n>tab_transaction}">
+					<IconTabFilter icon="sap-icon://notes" text="{i18n>tab_transaction}" class="iconTab_userinfo">
 						<Table inset="{= !${device>/system/phone}}" items="{dataTrans>/results}">
 							<columns>
 								<Column>
@@ -111,7 +111,7 @@
 						</Table>
 					</IconTabFilter>
 					<IconTabSeparator icon=""/>
-					<IconTabFilter icon="sap-icon://cart-approval" iconColor="Default" text="{i18n>tab_favoriteItem}">
+					<IconTabFilter icon="sap-icon://cart-approval" iconColor="Default" text="{i18n>tab_favoriteItem}" class="iconTab_userinfo">
 						<List id="ListItem" items="{oModelItem>/results}" class="itemFavorite_container">
 							<CustomListItem type="Navigation" press="selectItem">
 								<VBox>
@@ -128,7 +128,25 @@
 							</CustomListItem>
 						</List>
 					</IconTabFilter>
-					<IconTabFilter icon="sap-icon://unlocked" iconColor="Negative" text="{i18n>tab_forgetPassword}">
+					<IconTabFilter icon="sap-icon://retail-store" iconColor="Critical" text="{i18n>tab_favoriteShop}" class="iconTab_userinfo">
+						<List id="ListShop" items="{oModelShop>/results}" class="itemFavorite_container">
+							<CustomListItem type="Navigation" press="onSelectShop">
+								<VBox>
+									<Image src="{oModelShop>avatarUrl}" class="itemFavorite_image"/>
+									<HBox class="itemUserDetail">
+										<Title text="{oModelShop>shopName}" class="title_itemFa"/>
+									</HBox>
+									<HBox class="itemUserDetail">
+										<Title
+											text="{oModelShop>address/fullAddress}"
+											class="title_itemFa"/>
+									</HBox>
+								</VBox>
+							</CustomListItem>
+						</List>
+					</IconTabFilter>
+					<IconTabSeparator icon=""/>
+					<IconTabFilter icon="sap-icon://unlocked" iconColor="Negative" text="{i18n>tab_forgetPassword}" class="iconTab_userinfo">
 						<VBox width="{= ${device>/system/phone} ? '100%' : '500px' }">
 							<Title text="{i18n>title_change_password}"/>
 							<Label class="sapUiTinyMarginTop" text="{i18n>lb_old_password}"/>

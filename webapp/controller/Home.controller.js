@@ -47,6 +47,8 @@ sap.ui.define([
 			var lng = this.getGlobalModel().getProperty("/lng");
 
 			this.getBestSale(lat, lng);
+			var uid = localStorage.getItem("uid");
+			setInterval(this.fetchNoti(uid), 10000);
 		},
 
 		getDataCategory: function() {

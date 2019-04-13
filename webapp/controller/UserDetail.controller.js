@@ -47,13 +47,22 @@ sap.ui.define([
 					results: listTrans
 				});
 				this.setModel(dataTrans, "dataTrans");
-
+				
+				// get data item
 				var listItem = getData.listFavoriteItem;
 				var oModelItem = new JSONModel();
 				oModelItem.setData({
 					results: listItem
 				});
 				this.setModel(oModelItem, "oModelItem");
+				
+				//get data shop
+				var listShop = getData.listFavoriteShop;
+				var oModelShop = new JSONModel();
+				oModelShop.setData({
+					results: listShop	
+				});
+				this.setModel(oModelShop, "oModelShop");
 			}
 		},
 
@@ -159,6 +168,17 @@ sap.ui.define([
 				var itemId = bindingContext.getProperty("id");
 				this.getRouter().navTo("itemDetail", {
 					itemId: itemId
+				}, false);
+			}
+		},
+		
+		onSelectShop: function(oEvent) {
+			var item = oEvent.getSource();
+			var bindingContext = item.getBindingContext("oModelShop");
+			if (bindingContext) {
+				var shopId = bindingContext.getProperty("id");
+				this.getRouter().navTo("shopDetail", {
+					shopId: shopId
 				}, false);
 			}
 		}

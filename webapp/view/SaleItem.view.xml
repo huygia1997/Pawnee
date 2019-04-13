@@ -56,18 +56,23 @@
 				</List>
 			</VBox>
 			<VBox>
-				<VBox width="200px" class="box_select_sort_item">
-					<Label text="{i18n>lb_sort}" class="label_for_btn"/>
-					<Select width="100%" forceSelection="false" change="onChangeSort" selectedKey="1" id="filterSort">
-						<items>
-							<core:Item key="6" text="{i18n>select_all}"/>
-							<core:Item key="1" text="{i18n>select_new_item}"/>
-							<core:Item key="4" text="{i18n>select_height_price}"/>
-							<core:Item key="5" text="{i18n>select_low_price}"/>
-							<core:Item key="2" text="{i18n>select_view}"/>
-							<core:Item key="3" text="{i18n>select_like}"/>
-						</items>
-					</Select>
+				<VBox class="box_select_sort_item">
+					<HBox>
+						<VBox width="200px">
+							<Label text="{i18n>lb_sort}" class="label_for_btn"/>
+							<Select width="100%" forceSelection="false" change="onChangeSort" selectedKey="1" id="filterSort">
+								<items>
+									<core:Item key="6" text="{i18n>select_all}"/>
+									<core:Item key="1" text="{i18n>select_new_item}"/>
+									<core:Item key="4" text="{i18n>select_height_price}"/>
+									<core:Item key="5" text="{i18n>select_low_price}"/>
+									<core:Item key="2" text="{i18n>select_view}"/>
+									<core:Item key="3" text="{i18n>select_like}"/>
+								</items>
+							</Select>
+						</VBox>
+						<SearchField width="300px" search="onSearchItem" id="searchItem" class="fieldSearchItem"/>
+					</HBox>
 				</VBox>
 				<List id="ShortProductList" items="{bestItem>/results}" class="customListItem" growing="true" growingThreshold="10"
 					growingScrollToLoad="true" growingStarted="loadMoreShop">

@@ -2,7 +2,6 @@ sap.ui.define([], function() {
 	"use strict";
 	return {
 		status: function(sStatus) {
-			console.log(sStatus);
 			switch (sStatus) {
 				case 1:
 					return sap.ui.core.ValueState.Success;

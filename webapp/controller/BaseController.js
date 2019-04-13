@@ -209,7 +209,7 @@ sap.ui.define([
 						localStorage.setItem("email", check.username);
 
 						that._LoginDialog.close();
-						setInterval(that.fetchNoti(), 10000);
+						setInterval(that.fetchNoti(check.id), 600000);
 						this.getRouter().navTo("home");
 					} else {
 						//if login = false 
@@ -227,8 +227,9 @@ sap.ui.define([
 			loginModel.setProperty("/isLogging", false);
 			return password !== "" && user !== "";
 		},
-		fetchNoti: function(shopId) {
-			var getNoti = models.getNotifications(shopId);
+		
+		fetchNoti: function(uid) {
+			var getNoti = models.getNotifications(uid);
 			if (getNoti) {
 				var oModelNoti = this.getModel("noti");
 				oModelNoti.setData(getNoti);
@@ -237,6 +238,7 @@ sap.ui.define([
 				oModelNoti.updateBindings(true);
 			}
 		},
+		
 		backToHome: function() {
 			this.getRouter().navTo("home");
 		},

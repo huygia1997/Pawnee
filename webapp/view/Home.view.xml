@@ -44,7 +44,7 @@
 			</Bar>
 		</headerContent>
 		<content>
-			<HBox width="{= ${device>/system/phone} ? '100%' : '700px' }" class="customFilterBox">
+			<HBox class="customFilterBox">
 				<VBox class="filterBox">
 					<fb:FilterBar id="filterbar" search="onSearch" useToolbar="false" showGoOnFB="false" showFilterConfiguration="false" 
 					class="itemFilter">
