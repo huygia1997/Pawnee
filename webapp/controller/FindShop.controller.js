@@ -36,7 +36,7 @@ sap.ui.define([
 			var idCate = oEvent.getParameter("arguments").cate;
 			this.getModel("keyOfFilter").setProperty("/keyDis", idDis);
 			this.getModel("keyOfFilter").setProperty("/keyCate", idCate);
-			this.getAllShopByFilter(0, 3);
+			this.getBestShop();
 		},
 
 		onChangeSort: function() {
@@ -201,6 +201,10 @@ sap.ui.define([
 					cate: keyItem
 				}, false);
 			}
+		}, 
+		
+		loadMoreShop: function(oEvent) {
+			console.log(oEvent);
 		}
 	});
 });
