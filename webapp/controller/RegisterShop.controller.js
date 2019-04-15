@@ -162,7 +162,6 @@ sap.ui.define([
 					});
 					var currentLatitude = markers.getPosition().lat();
 					var currentLongitude = markers.getPosition().lng();
-					console.log("input: " + currentLatitude, currentLongitude);
 					that.getModel("modelRegister").setProperty("/lat", currentLatitude);
 					that.getModel("modelRegister").setProperty("/lng", currentLongitude);
 					that.getLatLng(markers);
@@ -180,8 +179,6 @@ sap.ui.define([
 				var currentLongitude = latLng.lng();
 				that.getModel("modelRegister").setProperty("/lat", currentLatitude);
 				that.getModel("modelRegister").setProperty("/lng", currentLongitude);
-
-				console.log("dragend: " + currentLatitude, currentLongitude);
 			});
 		},
 

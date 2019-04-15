@@ -15,7 +15,7 @@ sap.ui.define([
 
 		onInit: function() {
 			this.isLogging();
-			
+
 			var oRouter = this.getRouter();
 			oRouter.getRoute("home").attachPatternMatched(this._onRouteMatched, this);
 
@@ -25,7 +25,6 @@ sap.ui.define([
 			}
 			var oModel = new JSONModel();
 			this.setModel(oModel, "dataCity");
-			
 
 		},
 

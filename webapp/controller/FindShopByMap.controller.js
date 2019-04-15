@@ -13,13 +13,13 @@ sap.ui.define([
 		formatter: formatter,
 
 		onInit: function() {
-			this.isLogging();
+			// this.isLogging();
 			var oRouter = this.getRouter();
 			var oModel = new JSONModel();
 			this.setModel(oModel, "dataCity");
 
 			this.checkMarker = false;
-			
+
 			oRouter.getRoute("findShopByMap").attachPatternMatched(this._onRouteMatched, this);
 		},
 
@@ -51,16 +51,13 @@ sap.ui.define([
 			if (check === true) {
 				this.clearMarker();
 			}
-			var getShop = [];
-			if (idCate === "null" && idDis === "null") {
-				getShop = models.getShopByMap(0, 0);
-			} else if (idCate === "null" && idDis) {
-				getShop = models.getShopByMap(0, idDis);
-			} else if (idDis === "null" && idCate) {
-				getShop = models.getShopByMap(idCate, 0);
-			} else {
-				getShop = models.getShopByMap(idCate, idDis);
+			if (idCate == "null" || !idCate) {
+				idCate = 0;
 			}
+			if (idDis == "null" || !idDis) {
+				idDis = 0;
+			}
+			var getShop = models.getShopByMap(idCate, idDis);
 			if (getShop.length > 0) {
 				for (var i = 0; i < getShop.length; i++) {
 					this.getPositionOfMarker(getShop[i]);
@@ -98,7 +95,8 @@ sap.ui.define([
 			var fullAddress = address.fullAddress;
 			var shopId = data.id;
 			var content = "<div><image class='custom-image-box' src=" + data.avatarUrl + " /><div class='custom-content-box'><h1>" + data.shopName +
-				"</h1><span>Địa chỉ: </span><a href='https://mortgage.dfksoft.com/#/ShopDetail/"+ shopId +"'>" + fullAddress + "</span></div></div>";
+				"</h1><span>Địa chỉ: </span><a href='https://mortgage.dfksoft.com/#/ShopDetail/" + shopId + "'>" + fullAddress +
+				"</span></div></div>";
 			var infowindow = new google.maps.InfoWindow({
 				// content: data.shopName
 				content: content
@@ -107,10 +105,6 @@ sap.ui.define([
 				infowindow.open(gMap, marker);
 			});
 			gMap.setCenter(marker.getPosition());
-		},
-
-		onNavToShopDetail: function() {
-			console.log("abc");
 		},
 
 		getDataCategory: function() {

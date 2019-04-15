@@ -12,27 +12,22 @@ sap.ui.define([
 
 		onInit: function() {
 			var oRouter = this.getRouter();
-			var activateModel = new JSONModel({
-				text: "",
-				isActivate: false
-			});
-			this.setModel(activateModel, "activateModel");
-
 			oRouter.getRoute("activate").attachPatternMatched(this._onRouteMatched, this);
 		},
 
 		_onRouteMatched: function(oEvent) {
 			var token = oEvent.getParameter("arguments").token;
-			var data = models.checkActivate(token);
+			var activateModel = new JSONModel({
+				text: "",
+				isActivate: false
+			});
+			this.setModel(activateModel, "activateModel");
 			var getModel = this.getModel("activateModel");
-			if (data.status === 200) {
-				this.getView().byId("text_activate").addStyleClass("un_activate");
-				getModel.setProperty("/isActivate", true);
-				getModel.setProperty("/text", "Đăng kí tài khoản thành công!");
+			var data = models.checkActivate(token);
+			if (data.status === "success") {
+				getModel.setProperty("/text", "Tạo tài khoản thành công!");
 			} else {
-				this.getView().byId("text_activate").addStyleClass("activate");
-				getModel.setProperty("/isActivate", false);
-				getModel.setProperty("/text", "Đăng kí tài khoản thất bại!");
+				getModel.setProperty("/text", "Tạo tài khoản thất bại!");
 			}
 		},
 		

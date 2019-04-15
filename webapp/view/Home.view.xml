@@ -17,10 +17,10 @@
 							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
 						</layoutData>
 					</Button>
-					<MessagePopover items="{noti>/}" id="poAlert">
+					<MessagePopover items="{noti>/results}" id="poAlert" >
 						<items>
-							<MessageItem type="{ path: 'noti>status', formatter: '.formatter.status' }" title="{noti>senderId}" subtitle="{noti>dateCreate}"
-								description="{noti>message}"/>
+							<MessageItem type="{ path: 'noti>status', formatter: '.formatter.status' }" 
+								title="{noti>message}" subtitle="{noti>dateCreate}"/>
 						</items>
 					</MessagePopover>
 					<Button id="userButton" text="{globalProperties>/username}" type="Transparent" press="onUserNamePress"
@@ -139,7 +139,9 @@
 							<HBox class="hbox_listItem">
 								<Label text="{i18n>lb_liquidationDate}" class="lb_item"/>
 								<Title
-									text="{ path: 'oModelItem>liquidationDate', type: 'sap.ui.model.type.Date', formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ss.sss+hhmm' }, pattern: 'dd-MM-yyyy' } }"
+									text="{ path: 'oModelItem>liquidationDate', 
+									type: 'sap.ui.model.type.Date', 
+									formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ss.sss+hhmm' }, pattern: 'dd-MM-yyyy' } }"
 									class="fixCenter"/>
 							</HBox>
 						</VBox>

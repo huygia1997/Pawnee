@@ -20,6 +20,7 @@ sap.ui.define([
 		},
 
 		_onRouteMatched: function(oEvent) {
+			this.getView().byId("searchItem").setProperty("value", "");
 			this.getAllCate();
 			this.getAllItem();
 		},

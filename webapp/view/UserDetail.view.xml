@@ -18,7 +18,8 @@
 					</Button>
 					<MessagePopover items="{noti>/}" id="poAlert">
 						<items>
-							<MessageItem type="{ path: 'noti>status', formatter: '.formatter.status' }" title="{noti>senderId}" subtitle="{noti>dateCreate}"
+							<MessageItem type="{ path: 'noti>status', formatter: '.formatter.status' }" 
+							title="{noti>senderId}" subtitle="{noti>dateCreate}"
 								description="{noti>message}"/>
 						</items>
 					</MessagePopover>
@@ -100,11 +101,13 @@
 									<cells>
 										<Text text="{dataTrans>id}"/>
 										<Text text="{dataTrans>itemName}"/>
-										<Text text="{dataTrans>startDate}"/>
-										<Text text="{dataTrans>nextPaymentDate}"/>
+										<Text
+											text="{path: 'dataTrans>startDate', type: 'sap.ui.model.type.Date', formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ss.sss+hhmm' }, pattern: 'dd-MM-yyyy' }}"/>
+										<Text
+											text="{path: 'dataTrans>nextPaymentDate', type: 'sap.ui.model.type.Date', formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ss.sss+hhmm' }, pattern: 'dd-MM-yyyy' }}"/>
 										<Text text="{dataTrans>liquidateAfter}"/>
-										<ObjectStatus text="{trans>status/description}" state="{ path: 'trans>status/id', formatter: '.formatter.status' }"/>
-										<Text text="{dataTrans>status}"/>
+										<ObjectStatus text="{ path: 'dataTrans>status', formatter: '.formatter.transStatusDesc' }"
+											state="{ path: 'dataTrans>status', formatter: '.formatter.status' }"/>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -137,9 +140,7 @@
 										<Title text="{oModelShop>shopName}" class="title_itemFa"/>
 									</HBox>
 									<HBox class="itemUserDetail">
-										<Title
-											text="{oModelShop>address/fullAddress}"
-											class="title_itemFa"/>
+										<Title text="{oModelShop>address/fullAddress}" class="title_itemFa"/>
 									</HBox>
 								</VBox>
 							</CustomListItem>

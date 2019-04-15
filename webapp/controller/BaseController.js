@@ -232,11 +232,17 @@ sap.ui.define([
 			var getNoti = models.getNotifications(uid);
 			if (getNoti) {
 				var oModelNoti = this.getModel("noti");
-				oModelNoti.setData(getNoti);
+				oModelNoti.setData({
+					results: getNoti
+				});
 
 				oModelNoti.setProperty("/count", getNoti.length);
 				oModelNoti.updateBindings(true);
 			}
+		},
+		
+		oLink: function() {
+			
 		},
 		
 		backToHome: function() {

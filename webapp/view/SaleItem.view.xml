@@ -7,7 +7,7 @@
 					<Button icon="sap-icon://home" press=".backToHome"/>
 				</contentLeft>
 				<contentMiddle>
-					<SearchField id="searchField" search="onSearch" placeholder="{i18n>content_search_field}"/>
+					<!--<SearchField id="searchField" search="onSearch" placeholder="{i18n>content_search_field}"/>-->
 				</contentMiddle>
 				<contentRight>
 					<Button id="notificationButton" icon="sap-icon://bell" visible="{= ${globalProperties>/accountId} !== ''}" type="Transparent"

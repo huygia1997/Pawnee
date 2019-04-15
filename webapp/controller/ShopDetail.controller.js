@@ -13,7 +13,7 @@ sap.ui.define([
 		formatter: formatter,
 
 		onInit: function() {
-			this.isLogging();
+			// this.isLogging();
 			var oRouter = this.getRouter();
 
 			this.getView().byId("map").addStyleClass("myMap");
@@ -21,6 +21,12 @@ sap.ui.define([
 		},
 
 		_onRouteMatched: function(oEvent) {
+			var mapOptions = {
+				center: new google.maps.LatLng(0, 0),
+				zoom: 1,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			gMap = new google.maps.Map(this.getView().byId("map").getDomRef(), mapOptions);
 			var shopId = oEvent.getParameter("arguments").shopId;
 			var userId = this.getGlobalModel().getProperty("/accountId");
 			var checkView = sessionStorage.getItem("check");
@@ -84,6 +90,7 @@ sap.ui.define([
 					MessageBox.success("Cảm ơn bạn đã đánh giá chúng tôi!");
 				}
 			} else {
+				this.getView().byId("rating").setProperty("value", 1);
 				MessageBox.information("Bạn phải đăng nhập mới sử dụng được chức năng này!");
 			}
 		},

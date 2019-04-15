@@ -1,57 +1,21 @@
 <mvc:View controllerName="sap.ui.demo.basicTemplate.controller.Activate" displayBlock="true" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
-	<Page>
-		<headerContent>
-			<Bar>
-				<contentLeft>
-					<Button icon="sap-icon://home" press=".backToHome"/>
-				</contentLeft>
-				<contentMiddle>
-					<SearchField id="searchField" search="onSearch" placeholder="{i18n>content_search_field}" class="searchKeyword"/>
-				</contentMiddle>
-				<contentRight>
-					<Button id="notificationButton" icon="sap-icon://bell" visible="{= ${globalProperties>/accountId} !== ''}" type="Transparent"
-						press="onNotificationPress" text="{noti>/count}" class="btn-notify">
-						<layoutData>
-							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
-						</layoutData>
-					</Button>
-					<MessagePopover items="{noti>/}" id="poAlert">
-						<items>
-							<MessageItem type="{ path: 'noti>status', formatter: '.formatter.status' }" title="{noti>senderId}" subtitle="{noti>dateCreate}"
-								description="{noti>message}"/>
-						</items>
-					</MessagePopover>
-					<Button id="userButton" text="{globalProperties>/username}" type="Transparent" press="onUserNamePress"
-						visible="{= ${globalProperties>/accountId} !== ''}">
-						<layoutData>
-							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
-						</layoutData>
-					</Button>
-					<ActionSheet visible="false" placement="Bottom" id="userMessageActionSheet">
-						<buttons>
-							<Button text="{i18n>btn_acc_info}" type="Transparent" press="userDetail"/>
-							<Button text="{i18n>btn_logout}" type="Transparent" press="logout"/>
-						</buttons>
-					</ActionSheet>
-					<l:HorizontalLayout visible="{= ${globalProperties>/accountId} === ''}">
-						<Button text="Đăng Nhập" press="openDialogLogin"/>
-						<Button text="Đăng Ký" press="openDialogRegister"/>
-						<!--<Button text="active" press="navigateActivite"/>-->
-					</l:HorizontalLayout>
-				</contentRight>
-			</Bar>
-		</headerContent>
+	<Page class="menuBackground" title="{i18n>register_account}" busyIndicatorDelay="0" showFooter="false" showSubHeader="false">
 		<content>
-			<Bar>
-				<contentLeft></contentLeft>
-				<contentMiddle>
-					<Title text="Đăng ký thành công" visible="{= ${successModel>/success} ? true : false}"/>
-					<Title text="Đăng ký thất bại" visible="{= ${successModel>/success} ? false : true}"/>
-					<Link press="backToHome" text="Trang chủ"/>
-				</contentMiddle>
-				<contentRight></contentRight>
-			</Bar>
+			<VBox height="100%" alignItems="Center" justifyContent="Center">
+				<HBox width="{= ${device>/system/phone} ? '100%' : '400px'}" justifyContent="Center" fitContainer="true" height="100%" alignItems="Start"
+					direction="Column">
+					<items>
+						<sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" editable="true" layout="ResponsiveGridLayout" id="__form0">
+							<sap.ui.layout.form:content>
+									<Image src="images/logo.jpg" width="100%"/>
+									<Title id="text_activate" text="{activateModel>/text}" class="title_activate" />
+									<Button class="btn_THR_login" width="100%" text="{i18n>backHome}" press="backToHome" id="_btnSubmit"/>
+							</sap.ui.layout.form:content>
+						</sap.ui.layout.form:SimpleForm>
+					</items>
+				</HBox>
+			</VBox>
 		</content>
 	</Page>
 </mvc:View>
