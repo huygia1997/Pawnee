@@ -15,7 +15,7 @@ sap.ui.define([
 		formatter: formatter,
 
 		onInit: function() {
-			this.isLogging();
+			// this.isLogging();
 			var oRouter = this.getRouter();
 
 			this.getView().byId("map_canvas").addStyleClass("myMap");
