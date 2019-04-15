@@ -24,7 +24,7 @@ sap.ui.define([
 			this.setModel(activateModel, "activateModel");
 			var getModel = this.getModel("activateModel");
 			var data = models.checkActivate(token);
-			if (data.status === "success") {
+			if (data.status === 200) {
 				getModel.setProperty("/text", "Tạo tài khoản thành công!");
 			} else {
 				getModel.setProperty("/text", "Tạo tài khoản thất bại!");
