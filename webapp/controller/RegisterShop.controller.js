@@ -58,6 +58,9 @@ sap.ui.define([
 				// Browser doesn't support Geolocation
 				MessageBox.error("Trình duyệt của bạn không hỗ trợ Geolocation");
 			}
+			if(markers) {
+				this.clearMarker();
+			}
 		},
 
 		validatePhone: function() {
