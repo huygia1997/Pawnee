@@ -86,7 +86,10 @@
 								</HBox>
 								<HBox class="hbox_listItem">
 									<Label text="{i18n>lb_price}" class="lb_item"/>
-									<Title text="{bestItem>price} VNĐ" class="fixCenter"/>
+									<Title
+										text="{ parts: [ {path: 'bestItem>price'}, {path: 'global>/currencyCode'} ], 
+										type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true } }"
+										class="fixCenter"/>
 								</HBox>
 								<HBox class="hbox_listItem">
 									<Label text="{i18n>lb_liquidationDate}" class="lb_item"/>

@@ -121,7 +121,7 @@
 					</VBox>
 				</VBox>
 			</HBox>
-			<List id="ShortProductList" headerText="{i18n>titleHomepage_sellItem}" items="{oModelItem>/results}" class="customListItem">
+			<List growing="true" growingThreshold="10" id="ShortProductList" headerText="{i18n>titleHomepage_sellItem}" items="{oModelItem>/results}" class="customListItem">
 				<CustomListItem type="Navigation" press="selectItem">
 					<HBox>
 						<VBox width="100%">
@@ -133,7 +133,8 @@
 							<HBox class="hbox_listItem">
 								<Label text="{i18n>lb_price}" class="lb_item"/>
 								<Text
-									text="{ parts: [ {path: 'oModelItem>price'}, {path: 'global>/currencyCode'} ], type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: false } }"
+									text="{ parts: [ {path: 'oModelItem>price'}, 
+									{path: 'global>/currencyCode'} ], type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true } }"
 									class="fixCenter"/>
 							</HBox>
 							<HBox class="hbox_listItem">

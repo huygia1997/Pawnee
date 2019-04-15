@@ -69,14 +69,15 @@
 								<HBox class="box_itemDetail">
 									<Label class="itemDetail_label" text="{i18n>lb_liquidationDate}"/>
 									<Title
-										text="{ path: 'oModelItem>/liquidationDate', 
-										type: 'sap.ui.model.type.Date', 
-										formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ss.sss+hhmm' }, pattern: 'dd-MM-yyyy' } }"
+										text="{ path: 'oModelItem>/liquidationDate', type: 'sap.ui.model.type.Date', formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ss.sss+hhmm' }, pattern: 'dd-MM-yyyy' } }"
 										class="fixCenter"/>
 								</HBox>
 								<HBox class="box_itemDetail">
 									<Label class="itemDetail_label" text="{i18n>lb_price}"/>
-									<Title text="{oModelItem>/price} VNĐ"/>
+									<Title
+										text="{ parts: [ {path: 'oModelItem>/price'}, 
+										{path: 'global>/currencyCode'} ], type: 'sap.ui.model.type.Currency', 
+										formatOptions: { showMeasure: true } }"/>
 								</HBox>
 								<HBox class="box_itemDetail">
 									<Label class="itemDetail_label" text="{i18n>lb_itemView}"/>
