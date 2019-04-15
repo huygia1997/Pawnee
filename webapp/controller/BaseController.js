@@ -227,7 +227,7 @@ sap.ui.define([
 			loginModel.setProperty("/isLogging", false);
 			return password !== "" && user !== "";
 		},
-		
+
 		fetchNoti: function(uid) {
 			var getNoti = models.getNotifications(uid);
 			if (getNoti) {
@@ -235,16 +235,19 @@ sap.ui.define([
 				oModelNoti.setData({
 					results: getNoti
 				});
-
-				oModelNoti.setProperty("/count", getNoti.length);
+				if (getNoti.length == 0) {
+					oModelNoti.setProperty("/count", "");
+				} else {
+					oModelNoti.setProperty("/count", getNoti.length);
+				}
 				oModelNoti.updateBindings(true);
 			}
 		},
-		
+
 		oLink: function() {
-			
+
 		},
-		
+
 		backToHome: function() {
 			this.getRouter().navTo("home");
 		},
@@ -307,7 +310,7 @@ sap.ui.define([
 				MessageBox.error("Không được để trống");
 			} else if (!check) {
 				MessageBox.error("Email không đúng định dạng!");
-			} else if (password !== rePassword){
+			} else if (password !== rePassword) {
 				MessageBox.error("Mật khẩu không trùng khớp");
 			} else {
 				var checkData = models.checkRegister(email, password);
