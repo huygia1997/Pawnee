@@ -12,13 +12,13 @@ sap.ui.define([
 		formatter: formatter,
 
 		onInit: function() {
-			// this.isLogging();
 			var oRouter = this.getRouter();
 
 			oRouter.getRoute("itemDetail").attachPatternMatched(this._onRouteMatched, this);
 		},
 
 		_onRouteMatched: function(oEvent) {
+			this.checkLoginEachPage();
 			var itemId = oEvent.getParameter("arguments").itemId;
 			var userId = this.getGlobalModel().getProperty("/accountId");
 

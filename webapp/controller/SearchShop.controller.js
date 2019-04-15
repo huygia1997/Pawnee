@@ -19,6 +19,7 @@ sap.ui.define([
 		},
 
 		_onRouteMatched: function(oEvent) {
+			this.checkLoginEachPage();
 			var that = this;
 			var query = oEvent.getParameter("arguments").query;
 			// console.log(query);

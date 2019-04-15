@@ -20,6 +20,7 @@ sap.ui.define([
 		},
 
 		_onRouteMatched: function(oEvent) {
+			this.checkLoginEachPage();
 			this.getView().byId("searchItem").setProperty("value", "");
 			this.getAllCate();
 			this.getAllItem();
@@ -38,7 +39,6 @@ sap.ui.define([
 				getItem = models.getItemBySort(keySort, page, idCate);
 				this.keySort = false;
 			}
-			this.getView().byId("filterSort").setProperty("selectedKey", 1);
 			if (getItem) {
 				oModelItem.setData({
 					results: getItem
@@ -77,6 +77,8 @@ sap.ui.define([
 				this.idCate = cateId;
 				this.keySort = true;
 				this.getAllItem(6, 0, cateId);
+
+				this.getView().byId("filterSort").setProperty("selectedKey", 1);
 			}
 		},
 

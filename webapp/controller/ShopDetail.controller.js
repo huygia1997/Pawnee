@@ -16,21 +16,24 @@ sap.ui.define([
 			// this.isLogging();
 			var oRouter = this.getRouter();
 
-			this.getView().byId("map").addStyleClass("myMap");
 			oRouter.getRoute("shopDetail").attachPatternMatched(this._onRouteMatched, this);
+			this.getView().byId("map").addStyleClass("myMap");
 		},
 
 		_onRouteMatched: function(oEvent) {
-			var mapOptions = {
-				center: new google.maps.LatLng(0, 0),
-				zoom: 1,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-			};
-			gMap = new google.maps.Map(this.getView().byId("map").getDomRef(), mapOptions);
+			this.checkLoginEachPage();
+			if (!gMap) {
+				var mapOptions = {
+					center: new google.maps.LatLng(0, 0),
+					zoom: 1,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				};
+				gMap = new google.maps.Map(this.getView().byId("map").getDomRef(), mapOptions);
+			}
 			var shopId = oEvent.getParameter("arguments").shopId;
 			var userId = this.getGlobalModel().getProperty("/accountId");
 			var checkView = sessionStorage.getItem("check");
-			
+
 			this.getView().byId("rating").setProperty("value", 1);
 			this.check = false;
 			if (!checkView) {

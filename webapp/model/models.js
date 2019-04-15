@@ -282,15 +282,18 @@ sap.ui.define([
 
 		getShopDetail: function(shopId, userId, increaseView) {
 			var data = [];
+			var isAdmin = false;
 			var url;
 			if (serverInfo.useLocal) {
 				url = serverInfo.localUrl + "/shopDetail.json";
 			} else {
 				if (increaseView) {
 					if (userId) {
-						url = serverInfo.url + "/thong-tin-cua-hang?shopId=" + shopId + "&userId=" + userId + "&increaseView=" + increaseView;
+						url = serverInfo.url + "/thong-tin-cua-hang?shopId=" + shopId + "&userId=" + userId + "&increaseView=" + increaseView +
+							"&isAdmin=" + isAdmin;
 					} else {
-						url = serverInfo.url + "/thong-tin-cua-hang?shopId=" + shopId + "&increaseView=" + increaseView;
+						url = serverInfo.url + "/thong-tin-cua-hang?shopId=" + shopId + "&increaseView=" + increaseView +
+							"&isAdmin=" + isAdmin;
 					}
 				} else {
 					if (userId) {
@@ -499,15 +502,17 @@ sap.ui.define([
 
 		getItemDetail: function(itemId, userId, increaseView) {
 			var data;
+			var isAdmin = false;
 			var url;
 			if (serverInfo.useLocal) {
 				url = serverInfo.localUrl + "/shop.json";
 			} else {
 				if (increaseView) {
 					if (userId) {
-						url = serverInfo.url + "/thong-tin-san-pham?itemId=" + itemId + "&userId=" + userId + "&increaseView=" + increaseView;
+						url = serverInfo.url + "/thong-tin-san-pham?itemId=" + itemId + "&userId=" + userId + "&increaseView=" + increaseView +
+							"&isAdmin=" + isAdmin;
 					} else {
-						url = serverInfo.url + "/thong-tin-san-pham?itemId=" + itemId + "&increaseView=" + increaseView;
+						url = serverInfo.url + "/thong-tin-san-pham?itemId=" + itemId + "&increaseView=" + increaseView + "&isAdmin=" + isAdmin;
 					}
 				} else {
 					if (userId) {

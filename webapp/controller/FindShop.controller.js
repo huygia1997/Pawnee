@@ -11,7 +11,6 @@ sap.ui.define([
 		formatter: formatter,
 
 		onInit: function() {
-			// this.isLogging();
 			var oRouter = this.getRouter();
 			var oModel = new JSONModel();
 			this.setModel(oModel, "dataCity");
@@ -29,6 +28,7 @@ sap.ui.define([
 		},
 
 		_onRouteMatched: function(oEvent) {
+			this.checkLoginEachPage();
 			/** Get data **/
 			this.getDataCity();
 			this.getDataCategory();

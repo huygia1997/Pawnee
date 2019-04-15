@@ -408,6 +408,15 @@ sap.ui.define([
 				this.getGlobalModel().setProperty("/username", email);
 			}
 		},
+		
+		checkLoginEachPage: function() {
+			var uid = localStorage.getItem("uid");
+			var email = localStorage.getItem("email");
+			if (uid) {
+				this.getGlobalModel().setProperty("/accountId", uid);
+				this.getGlobalModel().setProperty("/username", email);
+			}
+		},
 
 		navToMapPage: function() {
 			var that = this;

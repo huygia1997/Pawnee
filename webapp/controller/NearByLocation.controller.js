@@ -15,7 +15,6 @@ sap.ui.define([
 		formatter: formatter,
 
 		onInit: function() {
-			// this.isLogging();
 			var oRouter = this.getRouter();
 
 			this.getView().byId("map_canvas").addStyleClass("myMap");
@@ -23,6 +22,7 @@ sap.ui.define([
 		},
 
 		_onRouteMatched: function(oEvent) {
+			this.checkLoginEachPage();
 			this.radius = 5;
 			this.lat = oEvent.getParameter("arguments").lat;
 			this.lng = oEvent.getParameter("arguments").lng;
