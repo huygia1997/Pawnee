@@ -32,9 +32,9 @@ sap.ui.define([
 			}
 			var shopId = oEvent.getParameter("arguments").shopId;
 			var userId = this.getGlobalModel().getProperty("/accountId");
-			var checkView = sessionStorage.getItem("check");
 
 			this.getView().byId("rating").setProperty("value", 1);
+			var checkView = sessionStorage.getItem("check");
 			this.check = false;
 			if (!checkView) {
 				sessionStorage.setItem("check", shopId);
@@ -60,11 +60,12 @@ sap.ui.define([
 			} else {
 				getData = models.getShopDetail(shopId, userId);
 			}
-			if (getData) {
+			if (getData.status === 400) {
+				this.getRouter().navTo("home");
+			} else {
 				this.getDataShop(getData);
 				this.getCateItem(getData);
 			}
-
 			this.visibleButton();
 		},
 

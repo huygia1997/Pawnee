@@ -52,7 +52,9 @@ sap.ui.define([
 			} else {
 				getItemDetail = models.getItemDetail(itemId, userId);
 			}
-			if (getItemDetail) {
+			if (getItemDetail.status === 400) {
+				this.getRouter().navTo("home");
+			} else {
 				oModelItem.setData(getItemDetail);
 				oModelImages.setData({
 					results: getItemDetail.pictureURL
