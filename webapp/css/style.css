@@ -539,6 +539,12 @@
 .customListItem .sapMSLIDescription {
 	display: none !important;
 }
+.box_container_forgetPass {
+	padding: 10px;
+}
+.btn_link {
+	text-align: center;
+}
 @media screen and (min-device-width: 375px) and (max-device-width: 768px) {
     .customIntro {
         display: none;

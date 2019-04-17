@@ -801,6 +801,46 @@ sap.ui.define([
 
 			});
 			return data;
+		},
+		
+		sendRequestForgetPassword: function(email) {
+			var data;
+			var url = serverInfo.url + "/quen-mat-khau?email=" + email;
+			$.ajax({
+				type: "GET",
+				url: url,
+				context: this,
+				dataType: 'json',
+				async: false,
+				success: function(d, r, xhr) {
+					data = d;
+				},
+				error: function(e) {
+					data = e;
+				}
+
+			});
+			return data;
+		},
+		
+		updatePassword: function(token, password) {
+			var data;
+			var url = serverInfo.url + "/thay-doi-mat-khau?token=" + token + "&password=" + password;
+			$.ajax({
+				type: "GET",
+				url: url,
+				context: this,
+				dataType: 'json',
+				async: false,
+				success: function(d, r, xhr) {
+					data = d;
+				},
+				error: function(e) {
+					data = e;
+				}
+
+			});
+			return data;
 		}
 	};
 

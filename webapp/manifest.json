@@ -157,6 +157,18 @@
 				"target": [
 					"itemDetail"
 				]
+			}, {
+				"pattern": "ForgetPassword",
+				"name": "forgetPassword",
+				"target": [
+					"forgetPassword"
+				]
+			}, {
+				"pattern": "UpdatePassword/?token={token}",
+				"name": "updatePassword",
+				"target": [
+					"updatePassword"
+				]
 			}],
 			"targets": {
 				"home": {
@@ -213,6 +225,16 @@
 				"itemDetail": {
 					"viewName": "ItemDetail",
 					"viewId": "itemDetail",
+					"controlId": "app"
+				},
+				"forgetPassword": {
+					"viewName": "ForgetPassword",
+					"viewId": "forgetPassword",
+					"controlId": "app"
+				},
+				"updatePassword": {
+					"viewName": "updatePassword",
+					"viewId": "updatePassword",
 					"controlId": "app"
 				}
 			}

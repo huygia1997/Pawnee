@@ -159,8 +159,8 @@ sap.ui.define([
 		getApplication: function() {
 			return this.getGlobalModel().getProperty("/application");
 		},
+		
 		validateEmailGlobal: function(email) {
-
 			var mailregex = /^\w+[\w-+\.]*\@\w+([-\.]\w+)*\.[a-zA-Z]{2,}$/;
 
 			if (!mailregex.test(email)) {
@@ -435,6 +435,10 @@ sap.ui.define([
 				// Browser doesn't support Geolocation
 				MessageBox.error("Trình duyệt của bạn không hỗ trợ Geolocation");
 			}
+		},
+		
+		onForgetPasswordPress: function() {
+			this.getRouter().navTo("forgetPassword");
 		}
 	});
 

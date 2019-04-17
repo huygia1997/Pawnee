@@ -11,7 +11,7 @@
 							<Label design="Bold" text="Password"/>
 							<Input value="{loginResult>/password}" maxLength="20" type="Password" width="100%" id="txtPassword" />
 							<VBox class="box_forgetPassword">
-								<Link press="onForgetPassword" text="{i18n>link_forgetPassword}" />
+								<Link text="{i18n>link_forgetPassword}" press="onForgetPasswordPress" />
 							</VBox>
 							<Button busy="{= ${loginResult>/isLogging} ? true : false}"
 							text="{= ${loginResult>/isLogging} ? ${i18n>btn_login_logging} : ${i18n>btn_login}}" press="checkLogin"/>
