@@ -11,7 +11,7 @@
 				</contentMiddle>
 				<contentRight>
 					<Button icon="sap-icon://bell" type="Transparent" text="{noti>/count}" press="onNotificationPress" tooltip="{i18n>errorButtonTooltip}"
-						class="btn-notify">
+						class="btn-notify" visible="{= ${globalProperties>/accountId} !== ''}">
 						<layoutData>
 							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
 						</layoutData>

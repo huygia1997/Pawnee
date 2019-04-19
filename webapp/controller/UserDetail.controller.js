@@ -227,9 +227,15 @@ sap.ui.define([
 					this._detailNotification.open();
 				} else if (type === 2) {
 					var itemId = bindingContext.getProperty("objectId");
-					this.getRouter().navTo("itemDetail", {
-						itemId: itemId
-					});
+					var userId = localStorage.getItem("uid");
+					var getItemDetail = models.getItemDetail(itemId, userId);
+					if (getItemDetail.status === 400) {
+						MessageBox.information("Sản phẩm không còn tồn tại trong hệ thống!");
+					} else {
+						this.getRouter().navTo("itemDetail", {
+							itemId: itemId
+						});
+					}
 				}
 
 			}
