@@ -10,18 +10,25 @@
 					<SearchField id="searchField" search="onSearch" placeholder="{i18n>content_search_field}"/>
 				</contentMiddle>
 				<contentRight>
-					<Button id="notificationButton" icon="sap-icon://bell" visible="{= ${globalProperties>/accountId} !== ''}" type="Transparent"
-						press="onNotificationPress" text="{noti>/count}" class="btn-notify">
+					<Button icon="sap-icon://bell" type="Transparent" text="{noti>/count}" press="onNotificationPress" tooltip="{i18n>errorButtonTooltip}"
+						class="btn-notify">
 						<layoutData>
 							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
 						</layoutData>
 					</Button>
-					<MessagePopover items="{noti>/}" id="poAlert" >
-						<items>
-							<MessageItem type="{ path: 'noti>status', formatter: '.formatter.status' }" title="{noti>senderId}" subtitle="{noti>dateCreate}"
-								description="{noti>message}" />
-						</items>
-					</MessagePopover>
+					<ResponsivePopover modal="false" showHeader="false" id="notiList" placement="VerticalPreferedBottom">
+						<beginButton>
+							<Button visible="{device>/system/phone}" type="Transparent" text="{i18n>close}" press="onDialogClose"/>
+						</beginButton>
+						<content>
+							<List items="{noti>/results}" noDataText="{i18n>msgNoNewNoti}">
+								<items>
+									<NotificationListItem press="onPressNotiDetail" title="{ path: 'noti>type', formatter: '.formatter.typeNotification' }"
+										authorName="{noti>dateCreate}" description="{noti>message}"/>
+								</items>
+							</List>
+						</content>
+					</ResponsivePopover>
 					<Button id="userButton" text="{globalProperties>/username}" type="Transparent" press="onUserNamePress"
 						visible="{= ${globalProperties>/accountId} !== ''}">
 						<layoutData>
@@ -48,20 +55,8 @@
 			<VBox class="registerShop-container">
 				<f:Form editable="true" class="custom-form-register">
 					<f:layout>
-						<f:ResponsiveGridLayout 
-							labelSpanXL="4" 
-							labelSpanL="2" 
-							labelSpanM="2" 
-							labelSpanS="12" 
-							adjustLabelSpan="false" 
-							emptySpanXL="4" 
-							emptySpanL="2"
-							emptySpanM="1" 
-							emptySpanS="0" 
-							columnsXL="1" 
-							columnsL="1" 
-							columnsM="1" 
-							columnsS="1" singleContainerFullSize="false"/>
+						<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="2" labelSpanM="2" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="2"
+							emptySpanM="1" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" columnsS="1" singleContainerFullSize="false"/>
 					</f:layout>
 					<f:formContainers>
 						<f:FormContainer>
@@ -71,7 +66,7 @@
 										<Label required="true" text="{i18n>lbl_register_email}"/>
 									</f:label>
 									<f:fields>
-										<Input change="validateEmail" id="emailRegister" type="Email" value="{modelRegister>/email}"/>
+										<Input change="validateEmail" id="emailRegister" type="Email" value="{modelRegister>/email}" editable="false"/>
 									</f:fields>
 								</f:FormElement>
 								<f:FormElement>
@@ -111,7 +106,8 @@
 										<Label required="true" text="{i18n>lbl_register_address}"/>
 									</f:label>
 									<f:fields>
-										<Input id="ip_address" value="{modelRegister>/address}" change="getLocationFromInput" type="Text" placeholder="{i18n>input_register_address}"/>
+										<Input id="ip_address" value="{modelRegister>/address}" change="getLocationFromInput" type="Text"
+											placeholder="{i18n>input_register_address}"/>
 									</f:fields>
 								</f:FormElement>
 							</f:formElements>
@@ -122,7 +118,8 @@
 					<Text class="grey-text" text="{i18n>register_guild}"/>
 					<HBox id="map_canvas" fitContainer="true" justifyContent="Center" alignItems="Center" class="custom-map-register"></HBox>
 					<Text class="grey-text" text="{i18n>register_policy}"/>
-					<Button busy="{= ${loginResult>/isLogging} ? true : false}" class="btn-findmore registerShop-sizeBtn" text="{i18n>btn_register_shop}" press="registerShop"/>
+					<Button busy="{= ${loginResult>/isLogging} ? true : false}" class="btn-findmore registerShop-sizeBtn" text="{i18n>btn_register_shop}"
+						press="registerShop"/>
 				</VBox>
 			</VBox>
 		</content>

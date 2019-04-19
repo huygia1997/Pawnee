@@ -1,0 +1,63 @@
+<core:FragmentDefinition xmlns:core='sap.ui.core' xmlns="sap.m" xmlns:l="sap.ui.layout">
+	<Dialog title="{i18n>title_notificationDetail}" afterClose="dialogAfterclose">
+		<content>
+			<VBox height="100%" justifyContent="Center" class="container_notificationDetail">
+				<VBox class="notificatinoDetail_box">
+					<HBox class="noti_box_content">
+						<Label text="{i18n>lb_nameOfItem}" class="label_notification" />
+						<Title text="{oModelNotiDetail>/itemName}"/>
+					</HBox>
+					<HBox class="noti_box_content">
+						<Label text="{i18n>lb_basePriceOfItem}" class="label_notification"/>
+						<Title text="{ parts: [ {path: 'oModelNotiDetail>/basePrice'}, {path: 'global>/currencyCode'} ], 
+						type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true } }"/>
+					</HBox>
+					<HBox class="noti_box_content">
+						<Label text="{i18n>lb_startDateOfItem}" class="label_notification"/>
+						<Title
+							text="{ path: 'oModelNotiDetail>/startDate', type: 'sap.ui.model.type.Date', formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ss.sss+hhmm' }, pattern: 'dd-MM-yyyy' } }"/>
+					</HBox>
+					<HBox class="noti_box_content">
+						<Label text="{i18n>lb_nextDateOfItem}" class="label_notification"/>
+						<Title
+							text="{ path: 'oModelNotiDetail>/nextPaymentDate', type: 'sap.ui.model.type.Date', formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ss.sss+hhmm' }, pattern: 'dd-MM-yyyy' } }"/>
+					</HBox>
+				</VBox>
+				<Table fixedLayout="false" popinLayout="GridSmall" alternateRowColors="true" inset="{= !${device>/support/touch}}"
+					items="{oModelNotiHistory>/}" id="ListUser">
+					<headerToolbar>
+						<Toolbar>
+							<content>
+								<Title level="H2" text="{i18n>title_history}"/>
+							</content>
+						</Toolbar>
+					</headerToolbar>
+					<columns>
+						<Column>
+							<Label wrapping="true" textAlign="Center" wrappingType="Hyphenated" text="{i18n>lb_dateEvent}"/>
+						</Column>
+						<Column>
+							<Label wrapping="true" textAlign="Center" wrappingType="Hyphenated" text="{i18n>lb_eventString}"/>
+						</Column>
+						<Column>
+							<Label wrapping="true" textAlign="Center" wrappingType="Hyphenated" text="{i18n>lb_status}"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem type="Active">
+							<cells>
+								<Title
+									text="{ path: 'oModelNotiHistory>dateEvent', type: 'sap.ui.model.type.Date', formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ss.sss+hhmm' }, pattern: 'dd-MM-yyyy' } }"/>
+								<Title text="{oModelNotiHistory>eventString}"/>
+								<Title text="{oModelNotiHistory>status}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</VBox>
+		</content>
+		<endButton>
+			<Button text="Close" visible="{=!${loginResult>/isLogging}}" press="onDialogClose"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

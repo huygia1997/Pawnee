@@ -58,7 +58,7 @@ sap.ui.define([
 				// Browser doesn't support Geolocation
 				MessageBox.error("Trình duyệt của bạn không hỗ trợ Geolocation");
 			}
-			if(markers) {
+			if (markers) {
 				this.clearMarker();
 			}
 		},
@@ -110,7 +110,15 @@ sap.ui.define([
 			var accountId = this.getGlobalModel().getProperty("/accountId");
 
 			if (this.checkRegister == true) {
-				if (lat === "" && lng === "") {
+				if (!email) {
+					MessageBox.error("Email không được để trống!");
+				} else if (!shopName) {
+					MessageBox.error("Tên cửa hàng không được để trống!");
+				} else if (!phone) {
+					MessageBox.error("Số điện thoại không được để trống!");
+				} else if (!address) {
+					MessageBox.error("Địa chỉ không được để trống!");
+				} else if (lat === "" && lng === "") {
 					MessageBox.error("Kéo Marker để có vị trí chính xác của Cửa hàng!");
 				} else {
 					var registerData = {
@@ -129,7 +137,7 @@ sap.ui.define([
 					} else if (registerShop.status === 406) {
 						MessageBox.error("Tài khoản này đã được đăng ký thành chủ tiệm");
 					} else {
-						MessageBox.error("Lỗi hệ thống!");
+						MessageBox.error("Đăng kí không thành công!");
 					}
 					modelResiter.setProperty("/isPressing", false);
 				}

@@ -42,7 +42,7 @@ sap.ui.define([
 		onChangeSort: function() {
 			var keySort = this.getView().byId("filterSort").getSelectedItem().getKey();
 			this.getModel("keyOfFilter").setProperty("/isSorting", true);
-			if (keySort === 4) {
+			if (keySort === "4") {
 				this.getBestShop();
 			} else {
 				this.getAllShopByFilter(0, keySort);
@@ -52,6 +52,7 @@ sap.ui.define([
 		getBestShop: function() {
 			var lat = this.getGlobalModel().getProperty("/lat");
 			var lng = this.getGlobalModel().getProperty("/lng");
+			console.log(lat, lng);
 			var getData = models.getBestShop(lat, lng);
 			if (getData) {
 				var oModelShop = this.getModel("dataSearchShop");

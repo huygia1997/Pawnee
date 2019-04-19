@@ -15,21 +15,18 @@ sap.ui.define([
 
 		onInit: function() {
 			this.isLogging();
+			
+			this.getMyLocation();
 
 			var oRouter = this.getRouter();
 			oRouter.getRoute("home").attachPatternMatched(this._onRouteMatched, this);
-
-			if (!this._Dialog) {
-				this._Dialog = sap.ui.xmlfragment(this.getId(), "sap.ui.demo.basicTemplate.fragment.ListFieldSelect",
-					this);
-			}
+			
 			var oModel = new JSONModel();
 			this.setModel(oModel, "dataCity");
 
 		},
 
 		_onRouteMatched: function(oEvent) {
-
 			// var isLoggin = this.getGlobalModel().getProperty("/isLogging");
 			// if (isLoggin == 1) {
 			// 	MessageBox.error("Xin lỗi! Bạn cần đăng nhập để tiếp tục");

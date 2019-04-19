@@ -159,7 +159,7 @@ sap.ui.define([
 		getApplication: function() {
 			return this.getGlobalModel().getProperty("/application");
 		},
-		
+
 		validateEmailGlobal: function(email) {
 			var mailregex = /^\w+[\w-+\.]*\@\w+([-\.]\w+)*\.[a-zA-Z]{2,}$/;
 
@@ -231,9 +231,15 @@ sap.ui.define([
 		fetchNoti: function(uid) {
 			var getNoti = models.getNotifications(uid);
 			if (getNoti) {
+				var notiPawner = [];
+				for (var i = 0; i < getNoti.length; i++) {
+					if (getNoti[i].type === 1 || getNoti[i].type === 2) {
+						notiPawner.push(getNoti[i]);
+					}
+				}
 				var oModelNoti = this.getModel("noti");
 				oModelNoti.setData({
-					results: getNoti
+					results: notiPawner
 				});
 				if (getNoti.length == 0) {
 					oModelNoti.setProperty("/count", "");
@@ -244,8 +250,42 @@ sap.ui.define([
 			}
 		},
 
-		oLink: function() {
+		onPressNotiDetail: function(oEvent) {
+			var item = oEvent.getSource();
+			var bindingContext = item.getBindingContext("noti");
+			if (bindingContext) {
+				var type = bindingContext.getProperty("type");
+				if (type === 1) {
+					var transId = bindingContext.getProperty("objectId");
+					var notificationId = bindingContext.getProperty("id");
+					if (!this._detailNotification) {
+						this._detailNotification = sap.ui.xmlfragment(this.getId(), "sap.ui.demo.basicTemplate.fragment.NotificationDetail",
+							this);
+					}
+					var notiDetail = models.getNotificationDetail(transId, notificationId);
+					if (notiDetail) {
+						var oModelNotiDetail = new JSONModel();
+						var transaction = notiDetail.transaction;
+						oModelNotiDetail.setData(transaction);
+						this.setModel(oModelNotiDetail, "oModelNotiDetail");
 
+						var oModelNotiHistory = new JSONModel();
+						var history = notiDetail.transactionHistories;
+						oModelNotiHistory.setData(history);
+						this.setModel(oModelNotiHistory, "oModelNotiHistory");
+					}
+					//Set models which is belonged to View to Fragment
+					this.getView().addDependent(this._detailNotification);
+
+					this._detailNotification.open();
+				} else if (type === 2) {
+					var itemId = bindingContext.getProperty("objectId");
+					this.getRouter().navTo("itemDetail", {
+						itemId: itemId
+					});
+				}
+
+			}
 		},
 
 		backToHome: function() {
@@ -343,15 +383,18 @@ sap.ui.define([
 		 */
 		onNotificationPress: function(oEvent) {
 			var oModelNoti = this.getModel("noti");
+			var notiList = this.byId("notiList");
+			// this.bindNotiModel();
+			notiList.openBy(oEvent.getSource());
 			// close message popover
-			var oMessagePopover = this.byId("errorMessagePopover");
-			if (oMessagePopover && oMessagePopover.isOpen()) {
-				oMessagePopover.close();
-			}
+			// var oMessagePopover = this.byId("errorMessagePopover");
+			// if (oMessagePopover && oMessagePopover.isOpen()) {
+			// 	oMessagePopover.close();
+			// }
 
-			var placement = oEvent.getSource();
-			var alertPo = this.byId("poAlert");
-			alertPo.openBy(placement);
+			// var placement = oEvent.getSource();
+			// var alertPo = this.byId("poAlert");
+			// alertPo.openBy(placement);
 			oModelNoti.setProperty("/count", "");
 			oModelNoti.updateBindings();
 		},
@@ -408,7 +451,7 @@ sap.ui.define([
 				this.getGlobalModel().setProperty("/username", email);
 			}
 		},
-		
+
 		checkLoginEachPage: function() {
 			var uid = localStorage.getItem("uid");
 			var email = localStorage.getItem("email");
@@ -436,7 +479,7 @@ sap.ui.define([
 				MessageBox.error("Trình duyệt của bạn không hỗ trợ Geolocation");
 			}
 		},
-		
+
 		onForgetPasswordPress: function() {
 			this.getRouter().navTo("forgetPassword");
 		}

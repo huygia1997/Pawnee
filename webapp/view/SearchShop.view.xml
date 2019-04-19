@@ -10,18 +10,26 @@
 					<SearchField id="searchField" search="onSearch" placeholder="{i18n>content_search_field}"/>
 				</contentMiddle>
 				<contentRight>
-					<Button id="notificationButton" icon="sap-icon://bell" visible="{= ${globalProperties>/accountId} !== ''}" type="Transparent"
-						press="onNotificationPress" text="{noti>/count}" class="btn-notify">
+					<Button icon="sap-icon://bell" type="Transparent" text="{noti>/count}" press="onNotificationPress" tooltip="{i18n>errorButtonTooltip}"
+						class="btn-notify">
 						<layoutData>
 							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
 						</layoutData>
 					</Button>
-					<MessagePopover items="{noti>/}" id="poAlert" >
-						<items>
-							<MessageItem type="{ path: 'noti>status', formatter: '.formatter.status' }" title="{noti>senderId}" subtitle="{noti>dateCreate}"
-								description="{noti>message}" />
-						</items>
-					</MessagePopover>
+					<ResponsivePopover modal="false" showHeader="false" id="notiList" placement="VerticalPreferedBottom">
+						<beginButton>
+							<Button visible="{device>/system/phone}" type="Transparent" text="{i18n>close}" press="onDialogClose"/>
+						</beginButton>
+						<content>
+							<List items="{noti>/results}" noDataText="{i18n>msgNoNewNoti}">
+								<items>
+									<NotificationListItem press="onPressNotiDetail" 
+										title="{ path: 'noti>type', formatter: '.formatter.typeNotification' }"
+										authorName="{noti>dateCreate}" description="{noti>message}"/>
+								</items>
+							</List>
+						</content>
+					</ResponsivePopover>
 					<Button id="userButton" text="{globalProperties>/username}" type="Transparent" press="onUserNamePress"
 						visible="{= ${globalProperties>/accountId} !== ''}">
 						<layoutData>

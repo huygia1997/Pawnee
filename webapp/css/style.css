@@ -545,6 +545,18 @@
 .btn_link {
 	text-align: center;
 }
+.container_notificationDetail {
+	padding: 10px;
+}
+.noti_box_content {
+	padding: 10px 0;
+}
+.label_notification {
+	width: 110px;
+}
+.notificatinoDetail_box {
+	margin: 0 auto;
+}
 @media screen and (min-device-width: 375px) and (max-device-width: 768px) {
     .customIntro {
         display: none;

@@ -47,7 +47,7 @@ sap.ui.define([
 					results: listTrans
 				});
 				this.setModel(dataTrans, "dataTrans");
-				
+
 				// get data item
 				var listItem = getData.listFavoriteItem;
 				var oModelItem = new JSONModel();
@@ -55,12 +55,12 @@ sap.ui.define([
 					results: listItem
 				});
 				this.setModel(oModelItem, "oModelItem");
-				
+
 				//get data shop
 				var listShop = getData.listFavoriteShop;
 				var oModelShop = new JSONModel();
 				oModelShop.setData({
-					results: listShop	
+					results: listShop
 				});
 				this.setModel(oModelShop, "oModelShop");
 			}
@@ -171,7 +171,7 @@ sap.ui.define([
 				}, false);
 			}
 		},
-		
+
 		onSelectShop: function(oEvent) {
 			var item = oEvent.getSource();
 			var bindingContext = item.getBindingContext("oModelShop");
@@ -181,6 +181,59 @@ sap.ui.define([
 					shopId: shopId
 				}, false);
 			}
+		},
+
+		updatePassword: function() {
+			var oldPassword = this.getView().byId("oldPassword").getValue();
+			var newPassword = this.getView().byId("newPassword").getValue();
+			var email = this.getGlobalModel().getProperty("/username");
+			var change = models.changePassword(newPassword, email, oldPassword);
+			if (change.status === 200) {
+				MessageBox.success("Cập nhật thành công!");
+				this.getView().byId("oldPassword").setValue("");
+				this.getView().byId("newPassword").setValue("");
+			} else {
+				MessageBox.error("Cập nhật thất bại!");
+			}
+		},
+
+		onPressNotiDetail: function(oEvent) {
+			var item = oEvent.getSource();
+			var bindingContext = item.getBindingContext("dataNotify");
+			if (bindingContext) {
+				var type = bindingContext.getProperty("type");
+				if (type === 1) {
+					var transId = bindingContext.getProperty("objectId");
+					var notificationId = bindingContext.getProperty("id");
+					if (!this._detailNotification) {
+						this._detailNotification = sap.ui.xmlfragment(this.getId(), "sap.ui.demo.basicTemplate.fragment.NotificationDetail",
+							this);
+					}
+					var notiDetail = models.getNotificationDetail(transId, notificationId);
+					if (notiDetail) {
+						var oModelNotiDetail = new JSONModel();
+						var transaction = notiDetail.transaction;
+						oModelNotiDetail.setData(transaction);
+						this.setModel(oModelNotiDetail, "oModelNotiDetail");
+
+						var oModelNotiHistory = new JSONModel();
+						var history = notiDetail.transactionHistories;
+						oModelNotiHistory.setData(history);
+						this.setModel(oModelNotiHistory, "oModelNotiHistory");
+					}
+					//Set models which is belonged to View to Fragment
+					this.getView().addDependent(this._detailNotification);
+
+					this._detailNotification.open();
+				} else if (type === 2) {
+					var itemId = bindingContext.getProperty("objectId");
+					this.getRouter().navTo("itemDetail", {
+						itemId: itemId
+					});
+				}
+
+			}
 		}
+
 	});
 });

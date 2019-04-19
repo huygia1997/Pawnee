@@ -11,18 +11,37 @@
 					<SearchField id="searchField" search="onSearch" placeholder="{i18n>content_search_field}" class="searchKeyword"/>
 				</contentMiddle>
 				<contentRight>
-					<Button id="notificationButton" icon="sap-icon://bell" visible="{= ${globalProperties>/accountId} !== ''}" type="Transparent"
-						press="onNotificationPress" text="{noti>/count}" class="btn-notify">
+					<!--<Button id="notificationButton" icon="sap-icon://bell" visible="{= ${globalProperties>/accountId} !== ''}" type="Transparent"-->
+					<!--	press="onNotificationPress" text="{noti>/count}" class="btn-notify">-->
+					<!--	<layoutData>-->
+					<!--		<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>-->
+					<!--	</layoutData>-->
+					<!--</Button>-->
+					<!--<MessagePopover items="{noti>/results}" id="poAlert">-->
+					<!--	<items>-->
+					<!--		<MessageItem type="{ path: 'noti>status', formatter: '.formatter.status' }" title="{noti>message}" subtitle="{noti>dateCreate}"/>-->
+					<!--	</items>-->
+					<!--</MessagePopover>-->
+					<Button icon="sap-icon://bell" type="Transparent" text="{noti>/count}" press="onNotificationPress" tooltip="{i18n>errorButtonTooltip}"
+						class="btn-notify">
 						<layoutData>
 							<OverflowToolbarLayoutData closeOverflowOnInteraction="false"/>
 						</layoutData>
 					</Button>
-					<MessagePopover items="{noti>/results}" id="poAlert" >
-						<items>
-							<MessageItem type="{ path: 'noti>status', formatter: '.formatter.status' }" 
-								title="{noti>message}" subtitle="{noti>dateCreate}"/>
-						</items>
-					</MessagePopover>
+					<ResponsivePopover modal="false" showHeader="false" id="notiList" placement="VerticalPreferedBottom">
+						<beginButton>
+							<Button visible="{device>/system/phone}" type="Transparent" text="{i18n>close}" press="onDialogClose"/>
+						</beginButton>
+						<content>
+							<List items="{noti>/results}" noDataText="{i18n>msgNoNewNoti}">
+								<items>
+									<NotificationListItem press="onPressNotiDetail" 
+										title="{ path: 'noti>type', formatter: '.formatter.typeNotification' }"
+										authorName="{noti>dateCreate}" description="{noti>message}"/>
+								</items>
+							</List>
+						</content>
+					</ResponsivePopover>
 					<Button id="userButton" text="{globalProperties>/username}" type="Transparent" press="onUserNamePress"
 						visible="{= ${globalProperties>/accountId} !== ''}">
 						<layoutData>
@@ -46,8 +65,7 @@
 		<content>
 			<HBox class="customFilterBox">
 				<VBox class="filterBox">
-					<fb:FilterBar id="filterbar" search="onSearch" useToolbar="false" showGoOnFB="false" showFilterConfiguration="false" 
-					class="itemFilter">
+					<fb:FilterBar id="filterbar" search="onSearch" useToolbar="false" showGoOnFB="false" showFilterConfiguration="false" class="itemFilter">
 						<fb:filterItems>
 							<fb:FilterItem name="A" label="{i18n>lbl_city}">
 								<fb:control>
@@ -121,7 +139,8 @@
 					</VBox>
 				</VBox>
 			</HBox>
-			<List growing="true" growingThreshold="10" id="ShortProductList" headerText="{i18n>titleHomepage_sellItem}" items="{oModelItem>/results}" class="customListItem">
+			<List growing="true" growingThreshold="10" id="ShortProductList" headerText="{i18n>titleHomepage_sellItem}" items="{oModelItem>/results}"
+				class="customListItem">
 				<CustomListItem type="Navigation" press="selectItem">
 					<HBox>
 						<VBox width="100%">
@@ -133,16 +152,13 @@
 							<HBox class="hbox_listItem">
 								<Label text="{i18n>lb_price}" class="lb_item"/>
 								<Text
-									text="{ parts: [ {path: 'oModelItem>price'}, 
-									{path: 'global>/currencyCode'} ], type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true } }"
+									text="{ parts: [ {path: 'oModelItem>price'}, {path: 'global>/currencyCode'} ], type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true } }"
 									class="fixCenter"/>
 							</HBox>
 							<HBox class="hbox_listItem">
 								<Label text="{i18n>lb_liquidationDate}" class="lb_item"/>
 								<Title
-									text="{ path: 'oModelItem>liquidationDate', 
-									type: 'sap.ui.model.type.Date', 
-									formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ss.sss+hhmm' }, pattern: 'dd-MM-yyyy' } }"
+									text="{ path: 'oModelItem>liquidationDate', type: 'sap.ui.model.type.Date', formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ss.sss+hhmm' }, pattern: 'dd-MM-yyyy' } }"
 									class="fixCenter"/>
 							</HBox>
 						</VBox>
