@@ -6,6 +6,7 @@ sap.ui.define([
 ], function(BaseController, formatter, models, JSONModel) {
 	"use strict";
 
+	var arrayShop = [];
 	return BaseController.extend("sap.ui.demo.basicTemplate.controller.FindShop", {
 
 		formatter: formatter,
@@ -21,13 +22,12 @@ sap.ui.define([
 			var keyOfFilter = new JSONModel();
 			this.setModel(keyOfFilter, "keyOfFilter");
 
-			// check first load data
-			this.checkFirstLoad = false;
-
 			oRouter.getRoute("findShop").attachPatternMatched(this._onRouteMatched, this);
 		},
 
 		_onRouteMatched: function(oEvent) {
+			this.getView().byId("filterSort").setProperty("selectedKey", 4);
+			this.checkGetBestShop = true;
 			this.checkLoginEachPage();
 			/** Get data **/
 			this.getDataCity();
@@ -37,11 +37,15 @@ sap.ui.define([
 			this.getModel("keyOfFilter").setProperty("/keyDis", idDis);
 			this.getModel("keyOfFilter").setProperty("/keyCate", idCate);
 			this.getBestShop();
+			this.paging = 0;
+			this.isScrollToLoad = false;
+			arrayShop = [];
 		},
 
 		onChangeSort: function() {
+			arrayShop = [];
 			var keySort = this.getView().byId("filterSort").getSelectedItem().getKey();
-			this.getModel("keyOfFilter").setProperty("/isSorting", true);
+			this.getModel("keyOfFilter").setProperty("/keySort", keySort);
 			if (keySort === "4") {
 				this.getBestShop();
 			} else {
@@ -50,9 +54,9 @@ sap.ui.define([
 		},
 
 		getBestShop: function() {
+			this.checkGetBestShop = true;
 			var lat = this.getGlobalModel().getProperty("/lat");
 			var lng = this.getGlobalModel().getProperty("/lng");
-			console.log(lat, lng);
 			var getData = models.getBestShop(lat, lng);
 			if (getData) {
 				var oModelShop = this.getModel("dataSearchShop");
@@ -63,6 +67,12 @@ sap.ui.define([
 		},
 
 		getAllShopByFilter: function(page, sort) {
+			// set array []
+			var isScrollToLoad = this.isScrollToLoad;
+			if (!isScrollToLoad) {
+				arrayShop = [];
+			}
+			this.checkGetBestShop = false;
 			var idDis = this.getModel("keyOfFilter").getProperty("/keyDis");
 			var idCate = this.getModel("keyOfFilter").getProperty("/keyCate");
 			var getData;
@@ -76,11 +86,19 @@ sap.ui.define([
 			} else {
 				getData = models.getShopByFilter(page, sort, 0, 0);
 			}
-			if (getData) {
-				oModelShop = this.getModel("dataSearchShop");
+			if (getData.length) {
+				if(!arrayShop.length) {
+					arrayShop.push(getData);
+				} else {
+					for(var i=0;i<getData.length;i++) {
+						arrayShop[0].push(getData[i]);
+					}
+				}
 				oModelShop.setData({
-					results: getData
+					results: arrayShop[0]
 				});
+			} else {
+				
 			}
 		},
 
@@ -140,6 +158,7 @@ sap.ui.define([
 				this.onChangeCity();
 			}
 		},
+
 		getDistrictByCity: function(cityId) {
 			var filters = [];
 			var cityIdFilter = new sap.ui.model.Filter({
@@ -150,6 +169,7 @@ sap.ui.define([
 			filters.push(cityIdFilter);
 			this.byId("filterDistrict").getBinding("items").filter(filters);
 		},
+
 		onChangeCity: function() {
 			var cityModel = this.getModel("dataCity");
 			if (cityModel) {
@@ -180,7 +200,7 @@ sap.ui.define([
 		navToMap: function() {
 			var keyDistrics = this.getView().byId("filterDistrict").getSelectedItem().getKey();
 			var keyItem = this.getView().byId("filterItem").getSelectedItem().getKey();
-			
+
 			if (keyDistrics === "" && keyItem) {
 				this.getRouter().navTo("findShopByMap", {
 					dis: "null",
@@ -202,10 +222,26 @@ sap.ui.define([
 					cate: keyItem
 				}, false);
 			}
-		}, 
-		
-		loadMoreShop: function(oEvent) {
-			console.log(oEvent);
+		},
+
+		onAfterRendering: function() {
+			var that = this;
+			var oPage = this.getView().byId("FindShopPage");
+			$("#" + oPage.sId + " section").scroll(function(oEvent) {
+				var checking = that.checkGetBestShop;
+				var scrollHeight = oEvent.target.scrollTop;
+				var windownHeight = oEvent.target.scrollHeight - oEvent.target.offsetHeight;
+				if (scrollHeight === windownHeight) {
+					if (!checking) {
+						var keySort = that.getModel("keyOfFilter").getProperty("/keySort");
+						if (keySort && keySort !== "4") {
+							var paging = ++that.paging;
+							that.isScrollToLoad = true;
+							that.getAllShopByFilter(paging, keySort);
+						}
+					}
+				}
+			});
 		}
 	});
 });

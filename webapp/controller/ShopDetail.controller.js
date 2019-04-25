@@ -90,7 +90,9 @@ sap.ui.define([
 			var shopId = this.getModel("dataShopDetail").getProperty("/id");
 			if (accountId) {
 				var rating = models.ratingShop(rate, accountId, shopId);
-				if (rating) {
+				if (rating.status === 400) {
+					MessageBox.information("Bạn đã đánh giá cửa hàng này!");
+				} else {
 					MessageBox.success("Cảm ơn bạn đã đánh giá chúng tôi!");
 				}
 			} else {

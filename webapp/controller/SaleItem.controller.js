@@ -15,15 +15,18 @@ sap.ui.define([
 		onInit: function() {
 			// this.isLogging();
 			var oRouter = this.getRouter();
-			this.keySort = false;
+
 			oRouter.getRoute("saleItem").attachPatternMatched(this._onRouteMatched, this);
 		},
 
-		_onRouteMatched: function(oEvent) {
+		_onRouteMatched: function() {
 			this.checkLoginEachPage();
+			this.getView().byId("filterSort").setProperty("selectedKey", 6);
 			this.getView().byId("searchItem").setProperty("value", "");
+			this.keySort = false;
 			this.getAllCate();
 			this.getAllItem();
+			this.idCate = "";
 		},
 
 		getAllItem: function(keySort, page, idCate) {
