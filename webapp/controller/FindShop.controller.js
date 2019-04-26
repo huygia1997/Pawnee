@@ -43,13 +43,14 @@ sap.ui.define([
 		},
 
 		onChangeSort: function() {
+			this.paging = 0;
 			arrayShop = [];
 			var keySort = this.getView().byId("filterSort").getSelectedItem().getKey();
 			this.getModel("keyOfFilter").setProperty("/keySort", keySort);
 			if (keySort === "4") {
 				this.getBestShop();
 			} else {
-				this.getAllShopByFilter(0, keySort);
+				this.getAllShopByFilter(this.paging, keySort);
 			}
 		},
 
@@ -97,8 +98,6 @@ sap.ui.define([
 				oModelShop.setData({
 					results: arrayShop[0]
 				});
-			} else {
-				
 			}
 		},
 
@@ -193,7 +192,6 @@ sap.ui.define([
 			} else {
 				oModelKey.setProperty("/keyCate", keyItem);
 			}
-			oModelKey.updateBindings(true);
 			this.getAllShopByFilter(0, 3);
 		},
 
