@@ -1,6 +1,6 @@
 <mvc:View controllerName="sap.ui.demo.basicTemplate.controller.SaleItem" displayBlock="true" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:tnt="sap.tnt" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
-	<Page>
+	<Page id="SaleItem">
 		<headerContent>
 			<Bar>
 				<contentLeft>
@@ -82,8 +82,7 @@
 						<SearchField width="300px" search="onSearchItem" id="searchItem" class="fieldSearchItem"/>
 					</HBox>
 				</VBox>
-				<List id="ShortProductList" items="{bestItem>/results}" class="customListItem" growing="true" growingThreshold="10"
-					growingScrollToLoad="true" growingStarted="loadMoreShop">
+				<List id="ShortProductList" items="{bestItem>/results}" class="customListItem">
 					<CustomListItem type="Navigation" press="selectItem">
 						<HBox>
 							<VBox width="100%">

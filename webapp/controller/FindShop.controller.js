@@ -2,8 +2,9 @@ sap.ui.define([
 	"sap/ui/demo/basicTemplate/controller/BaseController",
 	"sap/ui/demo/basicTemplate/model/formatter",
 	"sap/ui/demo/basicTemplate/model/models",
-	"sap/ui/model/json/JSONModel"
-], function(BaseController, formatter, models, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	'sap/m/MessageBox'
+], function(BaseController, formatter, models, JSONModel, MessageBox) {
 	"use strict";
 
 	var arrayShop = [];
@@ -88,16 +89,19 @@ sap.ui.define([
 				getData = models.getShopByFilter(page, sort, 0, 0);
 			}
 			if (getData.length) {
-				if(!arrayShop.length) {
+				if (!arrayShop.length || page === 0) {
+					arrayShop = [];
 					arrayShop.push(getData);
 				} else {
-					for(var i=0;i<getData.length;i++) {
+					for (var i = 0; i < getData.length; i++) {
 						arrayShop[0].push(getData[i]);
 					}
 				}
 				oModelShop.setData({
 					results: arrayShop[0]
 				});
+			} else if (!getData.length && !this.isScrollToLoad) {
+				MessageBox.information("Không có Cửa hàng trong khu vực bạn chọn!");
 			}
 		},
 
@@ -192,7 +196,9 @@ sap.ui.define([
 			} else {
 				oModelKey.setProperty("/keyCate", keyItem);
 			}
+			this.searchShopbyForm = true;
 			this.getAllShopByFilter(0, 3);
+			this.paging = 0;
 		},
 
 		navToMap: function() {
@@ -232,7 +238,7 @@ sap.ui.define([
 				if (scrollHeight === windownHeight) {
 					if (!checking) {
 						var keySort = that.getModel("keyOfFilter").getProperty("/keySort");
-						if (keySort && keySort !== "4") {
+						if (keySort !== "4") {
 							var paging = ++that.paging;
 							that.isScrollToLoad = true;
 							that.getAllShopByFilter(paging, keySort);
