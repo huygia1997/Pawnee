@@ -865,7 +865,7 @@ sap.ui.define([
 
 		changePassword: function(password, userName, oldPassword) {
 			var data;
-			var url = serverInfo.url + "/thay-doi-mat-khau?password=" + password + "&userName=" + userName + "&oldPassword=" + oldPassword;
+			var url = serverInfo.url + "/doi-mat-khau?password=" + password + "&userName=" + userName + "&oldPassword=" + oldPassword;
 			$.ajax({
 				type: "GET",
 				url: url,

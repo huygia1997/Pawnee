@@ -230,11 +230,13 @@ sap.ui.define([
 
 		fetchNoti: function(uid) {
 			var getNoti = models.getNotifications(uid);
+			var count = 0;
 			if (getNoti) {
 				var notiPawner = [];
 				for (var i = 0; i < getNoti.length; i++) {
 					if (getNoti[i].type === 1 || getNoti[i].type === 2) {
 						notiPawner.push(getNoti[i]);
+						count++;
 					}
 				}
 				var oModelNoti = this.getModel("noti");
@@ -244,7 +246,7 @@ sap.ui.define([
 				if (getNoti.length == 0) {
 					oModelNoti.setProperty("/count", "");
 				} else {
-					oModelNoti.setProperty("/count", getNoti.length);
+					oModelNoti.setProperty("/count", count);
 				}
 				oModelNoti.updateBindings(true);
 			}

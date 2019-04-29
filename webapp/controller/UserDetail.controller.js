@@ -18,9 +18,13 @@ sap.ui.define([
 			oRouter.getRoute("userDetail").attachPatternMatched(this._onRouteMatched, this);
 		},
 
-		_onRouteMatched: function(oEvent) {
+		_onRouteMatched: function() {
 			this.isLogging();
 			var id = this.getGlobalModel().getProperty("/accountId");
+			this.getUserDetail(id);
+		},
+
+		getUserDetail: function(id) {
 			var getData = models.getUserDetail(id);
 			if (getData) {
 				var dataUser = new JSONModel({
@@ -34,9 +38,15 @@ sap.ui.define([
 
 				// get data notification
 				var listNotification = getData.listNotification;
+				var notiPawner = [];
+				for (var i = 0; i < listNotification.length; i++) {
+					if (listNotification[i].type === 1 || listNotification[i].type === 2) {
+						notiPawner.push(listNotification[i]);
+					}
+				}
 				var dataNotify = new JSONModel();
 				dataNotify.setData({
-					results: listNotification
+					results: notiPawner
 				});
 				this.setModel(dataNotify, "dataNotify");
 

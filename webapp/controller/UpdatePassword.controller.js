@@ -21,7 +21,6 @@ sap.ui.define([
 		},
 
 		onUpdatePassword: function() {
-			var token = this.token;
 			var password = this.getView().byId("input_password").getValue();
 			var repassword = this.getView().byId("input_repassword").getValue();
 			if (password !== repassword) {
