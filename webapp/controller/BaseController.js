@@ -365,7 +365,9 @@ sap.ui.define([
 				if (checkData.status === 406) {
 					MessageBox.error("Email đã được sử dụng!");
 				} else if (checkData.status === 200) {
-					MessageBox.success("Đăng kí thành công! Mở email để kích hoạt tài khoản");
+					MessageBox.success("Đăng kí thành công! Mở email để kích hoạt tài khoản!");
+				} else if (checkData.status === 400) {
+					MessageBox.success("Email đã được sử dụng hoặc không đúng định dạng!");
 				} else {
 					MessageBox.error("Đăng kí thất bại!");
 				}

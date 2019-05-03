@@ -17,6 +17,7 @@
     width: 400px;
     position: relative;
     height: 350px;
+    margin: 20px;
 }
 .itemFilter {
     height: 300px;
@@ -556,6 +557,9 @@
 }
 .notificatinoDetail_box {
 	margin: 0 auto;
+}
+.box_shopDetailMap {
+	display: inline;
 }
 @media screen and (min-device-width: 375px) and (max-device-width: 768px) {
     .customIntro {

@@ -825,10 +825,15 @@ sap.ui.define([
 
 		updatePassword: function(token, password) {
 			var data;
-			var url = serverInfo.url + "/thay-doi-mat-khau?token=" + token + "&password=" + password;
+			var dataAjax = {
+				token: token,
+				password: password
+			};
+			var url = serverInfo.url + "/thay-doi-mat-khau";
 			$.ajax({
-				type: "GET",
+				type: "POST",
 				url: url,
+				data: dataAjax,
 				context: this,
 				dataType: 'json',
 				async: false,
@@ -865,10 +870,16 @@ sap.ui.define([
 
 		changePassword: function(password, userName, oldPassword) {
 			var data;
-			var url = serverInfo.url + "/doi-mat-khau?password=" + password + "&userName=" + userName + "&oldPassword=" + oldPassword;
+			var dataAjax = {
+				password: password,
+				userName: userName,
+				oldPassword: oldPassword
+			};
+			var url = serverInfo.url + "/doi-mat-khau";
 			$.ajax({
-				type: "GET",
+				type: "POST",
 				url: url,
+				data: dataAjax,
 				context: this,
 				dataType: 'json',
 				async: false,

@@ -81,6 +81,7 @@ sap.ui.define([
 		},
 
 		getPositionOfMarker: function(data) {
+			var that = this;
 			var location = data.address;
 			var latLog = new google.maps.LatLng(location.latitude, location.longtitude);
 
@@ -91,20 +92,32 @@ sap.ui.define([
 			});
 
 			markers.push(marker);
+			var shopId = data.id;
 			var address = data.address;
 			var fullAddress = address.fullAddress;
-			var shopId = data.id;
-			var content = "<div><image class='custom-image-box' src=" + data.avatarUrl + " /><div class='custom-content-box'><h1>" + data.shopName +
+			var content = "<div id='shopDetail' class='box_shopDetailMap'><image class='custom-image-box' src=" + data.avatarUrl +
+				" /><div class='custom-content-box'><h1>" + data.shopName +
 				"</h1><span>Địa chỉ: </span><a href='https://mortgage.dfksoft.com/#/ShopDetail/" + shopId + "'>" + fullAddress +
-				"</span></div></div>";
+				"</a></div></div>";
 			var infowindow = new google.maps.InfoWindow({
 				// content: data.shopName
 				content: content
 			});
 			marker.addListener('click', function() {
 				infowindow.open(gMap, marker);
+				// var those = that;
+				// $(document).on("click", "#shopDetail", function(oEvent) {
+				// 	console.log(oEvent);
+				// 	those.getRouter().navTo("shopDetail", {
+				// 		shopId: shopId
+				// 	});
+				// });
 			});
 			gMap.setCenter(marker.getPosition());
+		},
+
+		onPressShopDetail: function() {
+			console.log("abc");
 		},
 
 		getDataCategory: function() {
