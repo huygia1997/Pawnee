@@ -233,7 +233,7 @@
 					"controlId": "app"
 				},
 				"updatePassword": {
-					"viewName": "updatePassword",
+					"viewName": "UpdatePassword",
 					"viewId": "updatePassword",
 					"controlId": "app"
 				}
