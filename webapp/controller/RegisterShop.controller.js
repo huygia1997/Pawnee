@@ -133,11 +133,13 @@ sap.ui.define([
 					};
 					var registerShop = models.registerShop(registerData);
 					if (registerShop == "success") {
-						MessageBox.success("Gửi đăng ký thành công! Hệ thống sẽ duyệt Cửa hàng của bạn!");
+						this.getGlobalModel().setProperty("/registerShop", true);
+						this.getRouter().navTo("home");
 					} else if (registerShop.status === 406) {
 						MessageBox.error("Tài khoản này đã được đăng ký thành chủ tiệm");
 					} else {
 						MessageBox.error("Đăng kí không thành công!");
+						this.getRouter().navTo("home");
 					}
 					modelResiter.setProperty("/isPressing", false);
 				}

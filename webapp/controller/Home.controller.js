@@ -45,6 +45,11 @@ sap.ui.define([
 			this.getBestSale(lat, lng);
 			var uid = localStorage.getItem("uid");
 			setInterval(this.fetchNoti(uid), 10000);
+			var check = this.getGlobalModel().getProperty("/registerShop");
+			if(check) {
+				MessageBox.success("Gửi đăng ký thành công! Hệ thống sẽ duyệt Cửa hàng của bạn!");
+				this.getGlobalModel().setProperty("/registerShop", false);
+			}
 		},
 
 		getDataCategory: function() {
