@@ -89,6 +89,8 @@
 							<HBox>
 								<Label class="shopDetail-label" text="{i18n>lb_phone_detail}"/>
 								<Title text="{dataShopDetail>/phoneNumber}" class="customTextShop"/>
+								<!--<Link href="tel:{dataShopDetail>/phoneNumber}" -->
+								<!--	text="{dataShopDetail>/phoneNumber}" class="customTextShop_address"/>-->
 							</HBox>
 							<HBox>
 								<Label class="shopDetail-label" text="{i18n>lb_facebook_detail}"/>
