@@ -27,7 +27,8 @@ sap.ui.define([
 		},
 
 		_onRouteMatched: function(oEvent) {
-			this.getView().byId("filterSort").setProperty("selectedKey", 4);
+			this.getView().byId("filterSort").setProperty("selectedKey", 3);
+
 			this.checkGetBestShop = true;
 			this.checkLoginEachPage();
 			/** Get data **/
@@ -35,9 +36,22 @@ sap.ui.define([
 			this.getDataCategory();
 			var idDis = oEvent.getParameter("arguments").dis;
 			var idCate = oEvent.getParameter("arguments").cate;
+			if (idCate === "null") {
+				var selectedCate = 0;
+				this.getView().byId("filterItem").setProperty("selectedKey", selectedCate);
+			} else {
+				this.getView().byId("filterItem").setProperty("selectedKey", idCate);
+			}
+			if (idDis === "null") {
+				var selectedDis = 0;
+				this.getView().byId("filterDistrict").setProperty("selectedKey", selectedDis);
+			} else {
+				this.getView().byId("filterDistrict").setProperty("selectedKey", idDis);
+			}
+
 			this.getModel("keyOfFilter").setProperty("/keyDis", idDis);
 			this.getModel("keyOfFilter").setProperty("/keyCate", idCate);
-			this.getBestShop();
+			this.getAllShopByFilter(0, 3);
 			this.paging = 0;
 			this.isScrollToLoad = false;
 			arrayShop = [];

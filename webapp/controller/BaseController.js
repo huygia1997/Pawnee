@@ -209,7 +209,7 @@ sap.ui.define([
 						localStorage.setItem("email", check.username);
 
 						that._LoginDialog.close();
-						setInterval(that.fetchNoti(check.id), 600000);
+						setInterval(that.fetchNoti(check.id), 500000);
 						this.getRouter().navTo("home");
 					} else {
 						//if login = false 
